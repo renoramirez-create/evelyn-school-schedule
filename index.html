@@ -799,10 +799,406 @@
         padding-bottom: max(22px, env(safe-area-inset-bottom));
       }
     }
+  
+    /* =====================================================
+       V3 THEME + 3-DAY PREVIEW
+       ===================================================== */
+
+    body {
+      transition: background .35s ease, color .25s ease;
+    }
+
+    body.dark-mode {
+      --bg: #0c1119;
+      --card: #171e29;
+      --text: #f4f7fb;
+      --muted: #a6b0c1;
+      --border: #2c3645;
+      color-scheme: dark;
+      background:
+        radial-gradient(circle at top right, rgba(91,72,180,.18), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(34,120,160,.10), transparent 30%),
+        #0c1119;
+    }
+
+    body.preview-mode:not(.dark-mode) {
+      background:
+        radial-gradient(circle at 8% 4%, rgba(115, 220, 183, .34), transparent 28%),
+        radial-gradient(circle at 94% 8%, rgba(119, 191, 238, .32), transparent 32%),
+        linear-gradient(180deg, #eafaf3 0%, #eef9ff 54%, #f7fbff 100%);
+    }
+
+    body.dark-mode.preview-mode {
+      background:
+        radial-gradient(circle at 8% 4%, rgba(58, 163, 132, .22), transparent 30%),
+        radial-gradient(circle at 94% 8%, rgba(61, 135, 184, .24), transparent 34%),
+        linear-gradient(180deg, #0c1d1c 0%, #0c1822 55%, #0b1219 100%);
+    }
+
+    body.preview-mode .affirmation-popup {
+      display: none !important;
+    }
+
+    body.preview-mode .app {
+      padding-top: calc(max(18px, env(safe-area-inset-top)) + 64px);
+    }
+
+    .dashboard-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .preview-launch-button,
+    .theme-toggle-button {
+      min-height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .preview-launch-button:active,
+    .theme-toggle-button:active {
+      transform: translateY(1px);
+    }
+
+    .preview-launch-button {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 15px;
+      background: #172033;
+      color: #fff;
+      border-color: #172033;
+      box-shadow: 0 7px 18px rgba(23,32,51,.12);
+    }
+
+    .theme-toggle-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-width: 104px;
+      padding: 0 13px;
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .dark-mode .preview-launch-button {
+      background: #f2f5fa;
+      color: #111823;
+      border-color: #f2f5fa;
+    }
+
+    .dark-mode .theme-toggle-button {
+      background: #1b2432;
+    }
+
+    .preview-day-selector {
+      display: none;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      margin: 0 0 14px;
+    }
+
+    body.preview-mode .preview-day-selector {
+      display: grid;
+      animation: affirmationPop .35s ease;
+    }
+
+    .preview-day-button {
+      min-width: 0;
+      min-height: 78px;
+      padding: 11px 10px;
+      border: 1px solid rgba(74,128,138,.20);
+      border-radius: 17px;
+      background: rgba(255,255,255,.68);
+      color: #21414b;
+      text-align: left;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .preview-day-button.active {
+      background: rgba(255,255,255,.96);
+      border-color: rgba(46,129,141,.54);
+      box-shadow: 0 8px 20px rgba(56,121,132,.10);
+      transform: translateY(-1px);
+    }
+
+    .dark-mode .preview-day-button {
+      background: rgba(20,38,44,.76);
+      color: #daf2ef;
+      border-color: rgba(96,177,177,.24);
+    }
+
+    .dark-mode .preview-day-button.active {
+      background: rgba(24,49,55,.96);
+      border-color: rgba(110,205,194,.54);
+    }
+
+    .preview-day-name {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .preview-day-date {
+      display: block;
+      margin-top: 3px;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .preview-day-type {
+      display: block;
+      margin-top: 4px;
+      color: #64818a;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dark-mode .preview-day-type {
+      color: #9fc4c4;
+    }
+
+    .preview-floating-bar {
+      position: fixed;
+      z-index: 80;
+      top: max(10px, env(safe-area-inset-top));
+      left: 50%;
+      width: min(calc(100% - 24px), 720px);
+      min-height: 48px;
+      transform: translateX(-50%) translateY(-90px);
+      opacity: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 9px 8px 13px;
+      border: 1px solid rgba(69,143,144,.24);
+      border-radius: 17px;
+      background: rgba(245,255,252,.94);
+      color: #1e4a4d;
+      box-shadow: 0 14px 38px rgba(28,88,92,.16);
+      backdrop-filter: blur(18px);
+      transition: transform .28s ease, opacity .22s ease;
+    }
+
+    body.preview-mode .preview-floating-bar {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .dark-mode .preview-floating-bar {
+      background: rgba(17,35,40,.95);
+      color: #dff6f2;
+      border-color: rgba(96,187,178,.30);
+    }
+
+    .preview-floating-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .preview-floating-badge {
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      color: #278c7f;
+    }
+
+    .dark-mode .preview-floating-badge {
+      color: #7ad6c7;
+    }
+
+    #previewFloatingDate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .preview-floating-bar button {
+      flex-shrink: 0;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 12px;
+      background: #246d68;
+      color: #fff;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #24375d, #18233a);
+      transition: background .3s ease, box-shadow .3s ease;
+    }
+
+    .next-period-card {
+      position: relative;
+      overflow: hidden;
+      border-left: 5px solid var(--next-color, #9aa4b6);
+      transition: border-color .25s ease, background .25s ease;
+    }
+
+    .next-period-card::after {
+      content: "";
+      position: absolute;
+      right: -34px;
+      top: -38px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--next-color, #9aa4b6);
+      opacity: .07;
+      pointer-events: none;
+    }
+
+    .next-period-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .next-color-indicator {
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--next-color, #9aa4b6);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--next-color, #9aa4b6) 16%, transparent);
+    }
+
+    .dark-mode .info-card,
+    .dark-mode .schedule-item {
+      box-shadow: 0 5px 18px rgba(0,0,0,.14);
+    }
+
+    .dark-mode .affirmation-popup {
+      background: rgba(23,30,41,.94);
+      border-color: #2d3746;
+    }
+
+    .dark-mode .affirmation-message,
+    .dark-mode .notes-header h2,
+    .dark-mode .saved-note-text {
+      color: var(--text);
+    }
+
+    .dark-mode .affirmation-emoji {
+      background: linear-gradient(145deg, #29243b, #1c2b3b);
+    }
+
+    .dark-mode .affirmation-close,
+    .dark-mode .sheet-close {
+      background: #252f3d;
+      color: #b6c0cf;
+    }
+
+    .dark-mode .notes-sheet {
+      background: #141b25;
+      color: var(--text);
+    }
+
+    .dark-mode .note-textarea,
+    .dark-mode .reminder-fields input,
+    .dark-mode .saved-note {
+      background: #1b2430;
+      color: var(--text);
+      border-color: #303b49;
+    }
+
+    .dark-mode .calendar-note-action,
+    .dark-mode .saved-note-actions button {
+      background: #1b2430;
+      color: #d6deea;
+      border-color: #354253;
+    }
+
+    .dark-mode .notes-storage-tip,
+    .dark-mode .saved-notes-heading span:last-child {
+      background: #1b2430;
+      color: #a7b1c1;
+    }
+
+    .dark-mode .floating-note-button {
+      background: #f1f5fa;
+      color: #111823;
+    }
+
+    @media (max-width: 560px) {
+      .dashboard-controls {
+        display: grid;
+        grid-template-columns: 1fr auto;
+      }
+
+      .preview-launch-button {
+        min-width: 0;
+      }
+
+      .theme-toggle-button {
+        min-width: 90px;
+      }
+
+      .preview-day-selector {
+        gap: 7px;
+      }
+
+      .preview-day-button {
+        padding: 10px 8px;
+      }
+
+      .preview-day-date {
+        font-size: 12px;
+      }
+
+      .preview-day-type {
+        font-size: 9px;
+      }
+
+      .preview-floating-bar {
+        width: calc(100% - 18px);
+      }
+
+      #previewFloatingDate {
+        max-width: 190px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
+<div class="preview-floating-bar" id="previewFloatingBar" aria-live="polite">
+  <div class="preview-floating-copy">
+    <span class="preview-floating-badge">PREVIEW MODE</span>
+    <span id="previewFloatingDate">Next school day</span>
+  </div>
+
+  <button type="button" onclick="setTodayView()">Return to Today</button>
+</div>
+
 <div class="app">
 
   <div class="topbar">
@@ -817,24 +1213,19 @@
     </div>
   </div>
 
-  <div class="day-nav">
-    <div class="view-state" id="viewState">
-      <span class="view-state-dot"></span>
-      <span id="viewStateText">TODAY</span>
-    </div>
+  <div class="dashboard-controls" id="todayControls">
+    <button class="preview-launch-button" id="previewLaunchButton" type="button" onclick="enterPreviewMode()">
+      <span>📅</span>
+      <span>Preview Next 3 Days</span>
+    </button>
 
-    <button class="next-day-button" id="nextDayButton" type="button" onclick="toggleDayView()">
-      View Next School Day →
+    <button class="theme-toggle-button" id="themeToggleButton" type="button" onclick="toggleTheme()">
+      <span id="themeToggleIcon">🌙</span>
+      <span id="themeToggleText">Dark</span>
     </button>
   </div>
 
-  <div class="next-day-alert" id="nextDayAlert" aria-live="polite">
-    <div>
-      <strong>Previewing the next school day</strong>
-      <span id="nextDayAlertDate"></span>
-    </div>
-    <button type="button" onclick="setTodayView()">Back to Today</button>
-  </div>
+  <div class="preview-day-selector" id="previewDaySelector" aria-label="Preview school days"></div>
 
   <div id="affirmationPopup" class="affirmation-popup">
     <div class="affirmation-emoji" id="affirmationEmoji">✨</div>
@@ -849,7 +1240,7 @@
     <button class="affirmation-close" onclick="closeAffirmation()" aria-label="Close message">×</button>
   </div>
 
-  <section class="hero">
+  <section class="hero" id="heroCard">
     <div class="eyebrow">
       <span class="pulse-dot"></span>
       <span id="statusLabel">Coming Up</span>
@@ -871,21 +1262,24 @@
   </section>
 
   <div class="grid">
-    <section class="info-card">
-      <div class="card-label">Next Period</div>
+    <section class="info-card next-period-card" id="nextPeriodCard">
+      <div class="card-label next-period-label">
+        <span class="next-color-indicator" id="nextColorIndicator"></span>
+        <span>Next Period</span>
+      </div>
       <div id="nextClass">--</div>
       <div id="nextTime">--</div>
       <div id="nextDetails">--</div>
     </section>
 
     <section class="info-card">
-      <div class="card-label">Today's Schedule</div>
+      <div class="card-label" id="scheduleCardLabel">Today's Schedule</div>
       <div id="dayType">--</div>
       <div id="dayDescription">--</div>
     </section>
   </div>
 
-  <div class="section-title">Today</div>
+  <div class="section-title" id="sectionTitle">Today</div>
   <div id="scheduleList" class="schedule-list"></div>
 
   <div class="footer">
@@ -898,8 +1292,11 @@
 <script>
 const TIME_ZONE = "America/Los_Angeles";
 const NOTES_STORAGE_KEY = "evelyn-kastner-notes-v1";
+const THEME_STORAGE_KEY = "evelyn-kastner-theme-v1";
 
 let viewingNextSchoolDay = false;
+let previewDayIndex = 0;
+let affirmationDismissed = false;
 
 function getFresnoCalendarDate() {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -942,26 +1339,113 @@ function prettyDateForDate(date) {
   }).format(date);
 }
 
-function getNextSchoolDate() {
+function getNextSchoolDates(count = 3) {
+  const dates = [];
   let date = addCalendarDays(getFresnoCalendarDate(), 1);
 
-  while (["Saturday", "Sunday"].includes(weekdayNameForDate(date))) {
+  while (dates.length < count) {
+    const day = weekdayNameForDate(date);
+
+    if (!["Saturday", "Sunday"].includes(day)) {
+      dates.push(new Date(date.getTime()));
+    }
+
     date = addCalendarDays(date, 1);
   }
 
-  return date;
+  return dates;
 }
 
-function toggleDayView() {
-  viewingNextSchoolDay = !viewingNextSchoolDay;
+function getNextSchoolDate() {
+  return getNextSchoolDates(1)[0];
+}
+
+function getSelectedViewDate() {
+  if (!viewingNextSchoolDay) {
+    return getFresnoCalendarDate();
+  }
+
+  const previewDates = getNextSchoolDates(3);
+  return previewDates[Math.min(previewDayIndex, previewDates.length - 1)];
+}
+
+function enterPreviewMode() {
+  viewingNextSchoolDay = true;
+  previewDayIndex = 0;
+  updateDashboard();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function selectPreviewDay(index) {
+  previewDayIndex = Math.max(0, Math.min(2, Number(index) || 0));
   updateDashboard();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function setTodayView() {
   viewingNextSchoolDay = false;
+  previewDayIndex = 0;
   updateDashboard();
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.toggle("dark-mode");
+  localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
+  updateThemeButton();
+}
+
+function applyStoredTheme() {
+  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (storedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+  } else if (storedTheme === "light") {
+    document.body.classList.remove("dark-mode");
+  } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    document.body.classList.add("dark-mode");
+  }
+
+  updateThemeButton();
+}
+
+function updateThemeButton() {
+  const isDark = document.body.classList.contains("dark-mode");
+  const icon = document.getElementById("themeToggleIcon");
+  const text = document.getElementById("themeToggleText");
+
+  if (icon) icon.textContent = isDark ? "☀️" : "🌙";
+  if (text) text.textContent = isDark ? "Light" : "Dark";
+}
+
+function renderPreviewDaySelector(dates) {
+  const selector = document.getElementById("previewDaySelector");
+
+  if (!selector) return;
+
+  selector.innerHTML = dates.map((date, index) => {
+    const weekday = weekdayNameForDate(date);
+    const dayInfo = getScheduleForDay(weekday);
+
+    const shortDate = new Intl.DateTimeFormat("en-US", {
+      timeZone: "UTC",
+      month: "short",
+      day: "numeric"
+    }).format(date);
+
+    return `
+      <button
+        type="button"
+        class="preview-day-button ${index === previewDayIndex ? "active" : ""}"
+        onclick="selectPreviewDay(${index})"
+        aria-pressed="${index === previewDayIndex ? "true" : "false"}"
+      >
+        <span class="preview-day-name">${weekday}</span>
+        <span class="preview-day-date">${shortDate}</span>
+        <span class="preview-day-type">${dayInfo.name}</span>
+      </button>
+    `;
+  }).join("");
 }
 
 
@@ -1134,7 +1618,51 @@ function showDailyAffirmation() {
 }
 
 function closeAffirmation() {
+  affirmationDismissed = true;
   document.getElementById("affirmationPopup").classList.add("hide");
+}
+
+
+function shadeHexColor(hex, percent) {
+  const clean = hex.replace("#", "");
+  const num = parseInt(clean, 16);
+  const amount = Math.round(2.55 * percent);
+
+  const r = Math.max(0, Math.min(255, (num >> 16) + amount));
+  const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amount));
+  const b = Math.max(0, Math.min(255, (num & 0x0000FF) + amount));
+
+  return `#${(0x1000000 + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+}
+
+function setHeroColor(item) {
+  const hero = document.getElementById("heroCard");
+  if (!hero) return;
+
+  if (!item) {
+    hero.style.background = "linear-gradient(135deg, #24375d, #18233a)";
+    return;
+  }
+
+  const info = getItemInfo(item);
+  const color = info.color || "#324d82";
+  const darker = shadeHexColor(color, -28);
+
+  hero.style.background = `linear-gradient(135deg, ${color} 0%, ${darker} 100%)`;
+}
+
+function setNextIndicator(item) {
+  const card = document.getElementById("nextPeriodCard");
+
+  if (!card) return;
+
+  if (!item) {
+    card.style.setProperty("--next-color", "#9aa4b6");
+    return;
+  }
+
+  const info = getItemInfo(item);
+  card.style.setProperty("--next-color", info.color || "#9aa4b6");
 }
 
 function renderSchedule(schedule, isPreview = false) {
@@ -1180,44 +1708,55 @@ function renderSchedule(schedule, isPreview = false) {
 
 function updateDashboard() {
   const todayDate = getFresnoCalendarDate();
-  const targetDate = viewingNextSchoolDay ? getNextSchoolDate() : todayDate;
+  const previewDates = getNextSchoolDates(3);
+  const targetDate = viewingNextSchoolDay
+    ? previewDates[Math.min(previewDayIndex, previewDates.length - 1)]
+    : todayDate;
+
   const day = weekdayNameForDate(targetDate);
   const dayInfo = getScheduleForDay(day);
   const schedule = dayInfo.schedule;
   const now = currentMinutes();
 
+  document.body.classList.toggle("preview-mode", viewingNextSchoolDay);
+
+  const affirmation = document.getElementById("affirmationPopup");
+  if (affirmation) {
+    if (viewingNextSchoolDay || affirmationDismissed) {
+      affirmation.classList.add("hide");
+    } else {
+      affirmation.classList.remove("hide");
+    }
+  }
+
   document.getElementById("todayDate").textContent = prettyDateForDate(targetDate);
   document.getElementById("dayType").textContent = dayInfo.name;
   document.getElementById("dayDescription").textContent = dayInfo.description;
 
-  const viewState = document.getElementById("viewState");
-  const viewStateText = document.getElementById("viewStateText");
-  const nextDayButton = document.getElementById("nextDayButton");
-  const nextDayAlert = document.getElementById("nextDayAlert");
-  const nextDayAlertDate = document.getElementById("nextDayAlertDate");
   const viewDayLabel = document.getElementById("viewDayLabel");
   const viewSubtitle = document.getElementById("viewSubtitle");
+  const scheduleCardLabel = document.getElementById("scheduleCardLabel");
+  const sectionTitle = document.getElementById("sectionTitle");
+  const previewFloatingDate = document.getElementById("previewFloatingDate");
 
   if (viewingNextSchoolDay) {
-    viewState.classList.add("preview");
-    viewStateText.textContent = "NEXT SCHOOL DAY";
-    nextDayButton.textContent = "← Back to Today";
-    nextDayAlert.classList.add("show");
-    nextDayAlertDate.textContent = prettyDateForDate(targetDate);
-    viewDayLabel.textContent = "Preview";
-    viewSubtitle.textContent = "Viewing ahead • Fresno, California";
+    renderPreviewDaySelector(previewDates);
 
-    displayPreview(schedule, day);
+    viewDayLabel.textContent = "Preview";
+    viewSubtitle.textContent = "Looking ahead • Fresno, California";
+    scheduleCardLabel.textContent = "Preview Schedule";
+    sectionTitle.textContent = `${day}'s Schedule`;
+    previewFloatingDate.textContent = prettyDateForDate(targetDate);
+
+    displayPreview(schedule, day, targetDate);
     renderSchedule(schedule, true);
     return;
   }
 
-  viewState.classList.remove("preview");
-  viewStateText.textContent = "TODAY";
-  nextDayButton.textContent = "View Next School Day →";
-  nextDayAlert.classList.remove("show");
   viewDayLabel.textContent = "Today";
   viewSubtitle.textContent = "Fresno, California";
+  scheduleCardLabel.textContent = "Today's Schedule";
+  sectionTitle.textContent = "Today";
 
   if (!schedule.length) {
     setNoSchool();
@@ -1238,7 +1777,9 @@ function updateDashboard() {
       next = schedule[index + 1] || null;
     }
 
-    if (now < start && !upcoming) upcoming = item;
+    if (now < start && !upcoming) {
+      upcoming = item;
+    }
   });
 
   if (current) {
@@ -1254,11 +1795,14 @@ function updateDashboard() {
   renderSchedule(schedule, false);
 }
 
-function displayPreview(schedule, day) {
+function displayPreview(schedule, day, targetDate) {
   if (!schedule.length) {
-    document.getElementById("statusLabel").textContent = "Next School Day";
+    setHeroColor(null);
+    setNextIndicator(null);
+
+    document.getElementById("statusLabel").textContent = "Preview";
     document.getElementById("currentClass").textContent = "No Classes";
-    document.getElementById("currentTime").textContent = day;
+    document.getElementById("currentTime").textContent = prettyDateForDate(targetDate);
     document.getElementById("currentRoom").textContent = "Preview";
     document.getElementById("currentTeacher").textContent = "No regular schedule";
     document.getElementById("currentPeriod").textContent = day;
@@ -1272,6 +1816,8 @@ function displayPreview(schedule, day) {
   const second = schedule[1] || null;
   const info = getItemInfo(first);
 
+  setHeroColor(first);
+
   document.getElementById("statusLabel").textContent = "First Up";
   document.getElementById("currentClass").textContent = info.name;
   document.getElementById("currentTime").textContent = `${formatTime(first.start)} – ${formatTime(first.end)}`;
@@ -1279,7 +1825,7 @@ function displayPreview(schedule, day) {
   document.getElementById("currentTeacher").textContent = info.teacher || "Kastner Intermediate";
   document.getElementById("currentPeriod").textContent = info.period || `${durationMinutes(first)} minutes`;
   document.getElementById("countdownNumber").textContent = day.slice(0, 3).toUpperCase();
-  document.getElementById("countdownLabel").innerHTML = "next school<br>day preview";
+  document.getElementById("countdownLabel").innerHTML = "selected day<br>preview";
 
   showNext(second);
 }
@@ -1287,6 +1833,8 @@ function displayPreview(schedule, day) {
 function displayCurrent(item, next, now) {
   const info = getItemInfo(item);
   const remaining = Math.max(0, Math.ceil(toMinutes(item.end) - now));
+
+  setHeroColor(item);
 
   document.getElementById("statusLabel").textContent = item.type === "class" ? "Right Now" : "Current";
   document.getElementById("currentClass").textContent = info.name;
@@ -1303,6 +1851,8 @@ function displayCurrent(item, next, now) {
 function displayUpcoming(item, next, now) {
   const info = getItemInfo(item);
   const until = Math.max(0, Math.ceil(toMinutes(item.start) - now));
+
+  setHeroColor(item);
 
   document.getElementById("statusLabel").textContent = "Coming Up";
   document.getElementById("currentClass").textContent = info.name;
@@ -1321,6 +1871,8 @@ function showNext(item) {
   const timeEl = document.getElementById("nextTime");
   const detailsEl = document.getElementById("nextDetails");
 
+  setNextIndicator(item);
+
   if (!item) {
     classEl.textContent = "School Day Complete";
     timeEl.textContent = "No more periods";
@@ -1338,6 +1890,7 @@ function showNext(item) {
 }
 
 function displayDayComplete() {
+  setHeroColor(null);
   document.getElementById("statusLabel").textContent = "Finished";
   document.getElementById("currentClass").textContent = "School Day Complete";
   document.getElementById("currentTime").textContent = "No more scheduled periods today";
@@ -1350,6 +1903,7 @@ function displayDayComplete() {
 }
 
 function setNoSchool() {
+  setHeroColor(null);
   document.getElementById("statusLabel").textContent = "Weekend";
   document.getElementById("currentClass").textContent = "No School Today";
   document.getElementById("currentTime").textContent = "Enjoy your weekend";
@@ -1383,7 +1937,7 @@ function openNotes() {
   renderSavedNotes();
 
   if (!document.getElementById("reminderDate").value) {
-    const date = viewingNextSchoolDay ? getNextSchoolDate() : getFresnoCalendarDate();
+    const date = getSelectedViewDate();
     document.getElementById("reminderDate").value = isoDateOnly(date);
   }
 
@@ -1594,6 +2148,7 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeNotes();
 });
 
+applyStoredTheme();
 showDailyAffirmation();
 renderSavedNotes();
 updateDashboard();

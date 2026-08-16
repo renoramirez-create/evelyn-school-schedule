@@ -2,40 +2,37 @@
 
 A mobile-first school schedule dashboard for Kastner Intermediate.
 
-## Features
+## V3 features
 
-- Uses Fresno, California (`America/Los_Angeles`) for schedule logic
+- Live schedule logic uses Fresno, California time (`America/Los_Angeles`)
 - No Period 0
 - Color-matched periods
-- Current / coming-up period dashboard
-- Clear **View Next School Day** preview that skips weekends
-- Persistent warning banner while previewing another day so it cannot be confused with today
-- Daily affirmation for Evelyn with emoji
-- Floating **Note** button
-- Quick notes saved in the browser with localStorage
-- Copy saved notes to the clipboard
-- Optional date/time reminders
-- Open a saved reminder in Google Calendar with the event prefilled
-- Mobile-friendly layout
-- PWA support for adding to an Android home screen
-- Offline cache after the first successful visit
+- Main **Right Now / Coming Up / First Up** card changes to the active period color
+- **Next Period** card has a matching color indicator
+- Light and dark mode toggle with saved preference
+- **Preview Next 3 Days** mode
+- Preview automatically skips weekends
+- Three selectable school-day preview cards
+- Calm green and light-blue background while previewing
+- Persistent floating **PREVIEW MODE / Return to Today** control at the top
+- Daily affirmation for Evelyn is hidden while previewing
+- Floating note button
+- Notes saved locally in the browser
+- Copy saved notes
+- Optional Google Calendar reminder creation
+- PWA support for Android home-screen installation
+- Offline cache after first successful visit
 
-## Deploy or update with GitHub
+## Updating GitHub
 
-If replacing the previous version:
+If you already have the repository:
 
-1. Open the GitHub repository.
-2. Upload/replace `index.html`, `service-worker.js`, `manifest.webmanifest`, and `README.md`.
+1. Unzip this package.
+2. Replace the repository files with the files in this folder.
 3. Commit the changes.
 4. GitHub Pages will redeploy automatically.
-5. On the phone, refresh the site once while online so the new service worker can cache the updated version.
+5. Refresh the schedule once on Evelyn's phone while connected to the internet so the V3 service worker replaces the older cached version.
 
-## Notes and reminders
+## Reminder about calendar exceptions
 
-Quick notes use browser `localStorage`. They stay on the same phone/browser and domain, but they do **not** automatically sync to another phone or browser.
-
-For anything that must follow Evelyn across devices, add it to Google Calendar from the note panel.
-
-## Important
-
-This version follows the provided weekday bell schedule. It does not yet account for school holidays, minimum days, rally schedules, testing schedules, or other special calendar exceptions.
+This app currently follows the provided weekday bell schedule. It does not yet know school holidays, minimum days, rallies, testing schedules, or other special schedule exceptions.

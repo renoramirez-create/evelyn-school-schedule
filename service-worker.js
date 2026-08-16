@@ -1,4 +1,4 @@
-const CACHE_NAME = "kastner-schedule-v2";
+const CACHE_NAME = "kastner-schedule-v3";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest"];
 
 self.addEventListener("install", event => {
