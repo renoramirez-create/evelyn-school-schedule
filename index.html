@@ -1186,6 +1186,290 @@
       }
     }
 
+  
+    /* =====================================================
+       V4: SIMPLIFIED PREVIEW + KASTNER BRANDING
+       ===================================================== */
+
+    .school-brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+    }
+
+    .kastner-k {
+      width: 66px;
+      height: 66px;
+      flex-shrink: 0;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow:
+        0 8px 20px rgba(74, 11, 20, .15),
+        0 0 0 1px rgba(120, 27, 37, .08);
+    }
+
+    .school-brand .school-name {
+      font-size: 22px;
+      line-height: 1.05;
+    }
+
+    body.preview-mode:not(.dark-mode) {
+      background:
+        radial-gradient(circle at 4% 3%, rgba(120, 211, 159, .40), transparent 30%),
+        radial-gradient(circle at 96% 8%, rgba(244, 164, 190, .42), transparent 34%),
+        radial-gradient(circle at 50% 88%, rgba(157, 226, 181, .18), transparent 36%),
+        linear-gradient(145deg, #e8f8ec 0%, #fff0f5 52%, #f2fbf5 100%);
+    }
+
+    body.dark-mode.preview-mode {
+      background:
+        radial-gradient(circle at 5% 3%, rgba(67, 150, 100, .25), transparent 31%),
+        radial-gradient(circle at 96% 8%, rgba(173, 72, 108, .27), transparent 34%),
+        linear-gradient(145deg, #102019 0%, #24151d 55%, #101b17 100%);
+    }
+
+    body.preview-mode .today-dashboard {
+      display: none;
+    }
+
+    .preview-overview {
+      display: none;
+      margin-top: 4px;
+    }
+
+    body.preview-mode .preview-overview {
+      display: block;
+      animation: affirmationPop .3s ease;
+    }
+
+    .preview-simple-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin: 4px 2px 13px;
+    }
+
+    .preview-simple-heading strong {
+      font-size: 23px;
+      letter-spacing: -.5px;
+      color: var(--text);
+    }
+
+    .preview-simple-heading > span:last-child {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .preview-simple-label {
+      width: fit-content;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #27734e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .1em;
+    }
+
+    .preview-three-days {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .preview-day-card-simple {
+      overflow: hidden;
+      min-width: 0;
+      border-radius: 21px;
+      border: 1px solid rgba(94, 145, 109, .20);
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 10px 28px rgba(58, 104, 70, .09);
+      backdrop-filter: blur(13px);
+    }
+
+    .preview-day-card-simple:nth-child(2) {
+      border-color: rgba(196, 104, 137, .22);
+    }
+
+    .preview-day-card-simple:nth-child(3) {
+      border-color: rgba(91, 158, 111, .20);
+    }
+
+    .dark-mode .preview-day-card-simple {
+      background: rgba(23,31,39,.91);
+      border-color: #344239;
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+    }
+
+    .preview-day-head-simple {
+      padding: 15px 14px 13px;
+      background:
+        linear-gradient(135deg, rgba(132, 216, 158, .26), rgba(255,255,255,.35));
+      border-bottom: 1px solid rgba(90, 140, 104, .12);
+    }
+
+    .preview-day-card-simple:nth-child(2) .preview-day-head-simple {
+      background:
+        linear-gradient(135deg, rgba(246, 177, 201, .34), rgba(255,255,255,.38));
+    }
+
+    .preview-day-name-simple {
+      display: block;
+      color: #1e5639;
+      font-size: 17px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .preview-day-card-simple:nth-child(2) .preview-day-name-simple {
+      color: #8e3756;
+    }
+
+    .dark-mode .preview-day-name-simple {
+      color: #b7e5c6;
+    }
+
+    .dark-mode .preview-day-card-simple:nth-child(2) .preview-day-name-simple {
+      color: #f2b4c9;
+    }
+
+    .preview-date-simple {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .preview-list-simple {
+      display: flex;
+      flex-direction: column;
+      padding: 5px 0;
+    }
+
+    .preview-row-simple {
+      display: grid;
+      grid-template-columns: 44px minmax(0,1fr) auto;
+      gap: 9px;
+      align-items: center;
+      min-height: 58px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .preview-row-simple:last-child {
+      border-bottom: 0;
+    }
+
+    .preview-period-simple {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 900;
+      background: var(--row-color, #68758a);
+    }
+
+    .preview-class-simple {
+      min-width: 0;
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .preview-time-simple {
+      text-align: right;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .preview-support-simple {
+      --row-color: #4d749f;
+    }
+
+    .preview-support-simple .preview-class-simple {
+      color: #506278;
+    }
+
+    .dark-mode .preview-support-simple .preview-class-simple {
+      color: #aec0d3;
+    }
+
+    .preview-floating-bar {
+      background:
+        linear-gradient(100deg, rgba(230,249,235,.97), rgba(255,233,241,.97));
+      border-color: rgba(63,132,82,.20);
+      color: #22523a;
+    }
+
+    .dark-mode .preview-floating-bar {
+      background:
+        linear-gradient(100deg, rgba(21,49,32,.97), rgba(57,27,39,.97));
+      color: #e1f2e6;
+      border-color: rgba(103,173,123,.28);
+    }
+
+    .preview-floating-bar button {
+      background: #29704d;
+    }
+
+    .dark-mode .preview-floating-bar button {
+      background: #3c9468;
+    }
+
+    @media (max-width: 720px) {
+      .preview-three-days {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-day-card-simple {
+        border-radius: 19px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .school-brand {
+        gap: 10px;
+      }
+
+      .kastner-k {
+        width: 53px;
+        height: 53px;
+        border-radius: 13px;
+      }
+
+      .school-brand .school-name {
+        font-size: 17px;
+      }
+
+      .school-brand .school-subtitle {
+        font-size: 12px;
+      }
+
+      .date-wrap {
+        max-width: 110px;
+      }
+
+      .preview-simple-heading strong {
+        font-size: 21px;
+      }
+
+      .preview-row-simple {
+        grid-template-columns: 42px minmax(0,1fr) auto;
+        padding-left: 11px;
+        padding-right: 11px;
+      }
+    }
+
   </style>
 </head>
 
@@ -1202,9 +1486,19 @@
 <div class="app">
 
   <div class="topbar">
-    <div>
-      <h1 class="school-name">Evelyn's Kastner Schedule</h1>
-      <div class="school-subtitle" id="viewSubtitle">Fresno, California</div>
+    <div class="school-brand">
+      <img
+        class="kastner-k"
+        src="./kastner-k.png"
+        alt="Kastner K"
+        width="68"
+        height="68"
+      />
+
+      <div>
+        <h1 class="school-name">Kastner Intermediate</h1>
+        <div class="school-subtitle" id="viewSubtitle">Evelyn's Schedule</div>
+      </div>
     </div>
 
     <div class="date-wrap">
@@ -1225,7 +1519,15 @@
     </button>
   </div>
 
-  <div class="preview-day-selector" id="previewDaySelector" aria-label="Preview school days"></div>
+  <section class="preview-overview" id="previewOverview" aria-label="Next three school days">
+    <div class="preview-simple-heading">
+      <span class="preview-simple-label">PREVIEW ONLY</span>
+      <strong>Next 3 School Days</strong>
+      <span>Just the classes and times.</span>
+    </div>
+
+    <div class="preview-three-days" id="previewThreeDays"></div>
+  </section>
 
   <div id="affirmationPopup" class="affirmation-popup">
     <div class="affirmation-emoji" id="affirmationEmoji">✨</div>
@@ -1240,6 +1542,7 @@
     <button class="affirmation-close" onclick="closeAffirmation()" aria-label="Close message">×</button>
   </div>
 
+  <div class="today-dashboard" id="todayDashboard">
   <section class="hero" id="heroCard">
     <div class="eyebrow">
       <span class="pulse-dot"></span>
@@ -1281,6 +1584,8 @@
 
   <div class="section-title" id="sectionTitle">Today</div>
   <div id="scheduleList" class="schedule-list"></div>
+
+  </div><!-- /todayDashboard -->
 
   <div class="footer">
     Kastner Intermediate • Clovis Unified School District<br>
@@ -1365,13 +1670,11 @@ function getSelectedViewDate() {
     return getFresnoCalendarDate();
   }
 
-  const previewDates = getNextSchoolDates(3);
-  return previewDates[Math.min(previewDayIndex, previewDates.length - 1)];
+  return getNextSchoolDates(3)[0];
 }
 
 function enterPreviewMode() {
   viewingNextSchoolDay = true;
-  previewDayIndex = 0;
   updateDashboard();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1418,12 +1721,12 @@ function updateThemeButton() {
   if (text) text.textContent = isDark ? "Light" : "Dark";
 }
 
-function renderPreviewDaySelector(dates) {
-  const selector = document.getElementById("previewDaySelector");
+function renderPreviewThreeDays(dates) {
+  const container = document.getElementById("previewThreeDays");
 
-  if (!selector) return;
+  if (!container) return;
 
-  selector.innerHTML = dates.map((date, index) => {
+  container.innerHTML = dates.map(date => {
     const weekday = weekdayNameForDate(date);
     const dayInfo = getScheduleForDay(weekday);
 
@@ -1433,28 +1736,71 @@ function renderPreviewDaySelector(dates) {
       day: "numeric"
     }).format(date);
 
+    // Preview is intentionally simplified:
+    // only class periods + T-Bird intervention, no breaks/lunch,
+    // no teachers, rooms, countdowns, or other extra information.
+    const previewItems = dayInfo.schedule.filter(item =>
+      item.type === "class" || item.type === "intervention"
+    );
+
+    const rows = previewItems.map(item => {
+      const info = getItemInfo(item);
+
+      if (item.type === "class") {
+        return `
+          <div class="preview-row-simple">
+            <div
+              class="preview-period-simple"
+              style="--row-color:${info.color}"
+              aria-label="${info.period}"
+            >
+              ${item.period}
+            </div>
+
+            <div class="preview-class-simple">
+              ${classes[item.period].name}
+            </div>
+
+            <div class="preview-time-simple">
+              ${formatTime(item.start)}<br>${formatTime(item.end)}
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="preview-row-simple preview-support-simple">
+          <div class="preview-period-simple" aria-label="T-Bird">★</div>
+          <div class="preview-class-simple">T-Bird</div>
+          <div class="preview-time-simple">
+            ${formatTime(item.start)}<br>${formatTime(item.end)}
+          </div>
+        </div>
+      `;
+    }).join("");
+
     return `
-      <button
-        type="button"
-        class="preview-day-button ${index === previewDayIndex ? "active" : ""}"
-        onclick="selectPreviewDay(${index})"
-        aria-pressed="${index === previewDayIndex ? "true" : "false"}"
-      >
-        <span class="preview-day-name">${weekday}</span>
-        <span class="preview-day-date">${shortDate}</span>
-        <span class="preview-day-type">${dayInfo.name}</span>
-      </button>
+      <article class="preview-day-card-simple">
+        <div class="preview-day-head-simple">
+          <span class="preview-day-name-simple">${weekday}</span>
+          <span class="preview-date-simple">${shortDate} • ${dayInfo.name}</span>
+        </div>
+
+        <div class="preview-list-simple">
+          ${rows}
+        </div>
+      </article>
     `;
   }).join("");
 }
 
 
 const classes = {
-  1: { name: "English 8", teacher: "Davidson Barcellos, S", room: "F2", color: "#6d4bd1" },
-  2: { name: "US History 8", teacher: "Davidson Barcellos, S", room: "F2", color: "#3478d4" },
+  1: { name: "AB English 8", teacher: "Davidson Barcellos, S", room: "F2", color: "#6d4bd1" },
+  2: { name: "AB US History 8", teacher: "Davidson Barcellos, S", room: "F2", color: "#3478d4" },
   3: { name: "PE I", teacher: "Gray, S", room: "PE GYM", color: "#22a06b" },
   4: { name: "Science 8 I", teacher: "Warner, R", room: "C1", color: "#f39a31" },
-  6: { name: "Advanced Art 7/8", teacher: "Lowder, R", room: "K2", color: "#e34c4c" },
+  6: { name: "Adv Art 7/8", teacher: "Lowder, R", room: "K2", color: "#e34c4c" },
   7: { name: "Math 8", teacher: "Frye, T", room: "E6", color: "#a23db8" }
 };
 
@@ -1470,7 +1816,7 @@ const regularSchedule = [
 ];
 
 const tuesdaySchedule = [
-  { type: "class", period: 1, nameOverride: "English 8 / Advisory", start: "08:20", end: "09:26" },
+  { type: "class", period: 1, nameOverride: "AB AB English 8 / Advisory", start: "08:20", end: "09:26" },
   { type: "class", period: 2, start: "09:31", end: "10:23" },
   { type: "break", name: "Break", start: "10:23", end: "10:37", color: "#f1b84b" },
   { type: "class", period: 3, start: "10:42", end: "11:34" },
@@ -1709,9 +2055,7 @@ function renderSchedule(schedule, isPreview = false) {
 function updateDashboard() {
   const todayDate = getFresnoCalendarDate();
   const previewDates = getNextSchoolDates(3);
-  const targetDate = viewingNextSchoolDay
-    ? previewDates[Math.min(previewDayIndex, previewDates.length - 1)]
-    : todayDate;
+  const targetDate = todayDate;
 
   const day = weekdayNameForDate(targetDate);
   const dayInfo = getScheduleForDay(day);
@@ -1740,16 +2084,14 @@ function updateDashboard() {
   const previewFloatingDate = document.getElementById("previewFloatingDate");
 
   if (viewingNextSchoolDay) {
-    renderPreviewDaySelector(previewDates);
+    renderPreviewThreeDays(previewDates);
 
     viewDayLabel.textContent = "Preview";
-    viewSubtitle.textContent = "Looking ahead • Fresno, California";
+    viewSubtitle.textContent = "Evelyn's Schedule";
     scheduleCardLabel.textContent = "Preview Schedule";
-    sectionTitle.textContent = `${day}'s Schedule`;
-    previewFloatingDate.textContent = prettyDateForDate(targetDate);
+    sectionTitle.textContent = "Next 3 School Days";
+    previewFloatingDate.textContent = "Next 3 school days";
 
-    displayPreview(schedule, day, targetDate);
-    renderSchedule(schedule, true);
     return;
   }
 
