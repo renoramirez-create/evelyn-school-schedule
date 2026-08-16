@@ -1,43 +1,25 @@
-# Evelyn's Kastner Schedule V4
+# Evelyn's Kastner Schedule V4.3
 
-Mobile-first school schedule dashboard for Kastner Intermediate.
+Updated school schedule dashboard with a simplified, distraction-reduced interface.
 
-## Source of truth
+## V4.3 UI updates
 
-V4 uses Evelyn's final schedule supplied in `Evelyn8Sched.docx`.
+- Dark mode is locked on
+- Theme/color button removed
+- In Preview Mode:
+  - Kastner logo/header is hidden
+  - "Preview Next 3 Days" launch button is hidden
+  - only the clean 3-day preview remains
+  - floating PREVIEW MODE / Return to Today control stays visible
+- Save Note button is bright green
+- Add to Google Calendar button is bright blue
+- Floating kawaii/chibi dancing avocado remains at bottom-left
+  - animated with CSS
+  - includes a smile/tap hint
+  - tapping it dismisses it for the current page view
+- Period 0 remains excluded everywhere
+- Kastner K favicon and PWA icons remain active
 
-Classes:
-- Period 1: AB English 8 - Davidson Barcellos, S - F2
-- Period 2: AB US History 8 - Davidson Barcellos, S - F2
-- Period 3: PE I - Gray, S - PE GYM
-- Period 4: Science 8 I - Warner, R - C1
-- Period 6: Adv Art 7/8 - Lowder, R - K2
-- Period 7: Math 8 - Frye, T - E6
+## GitHub update
 
-Period 0 is intentionally excluded everywhere.
-
-## V4 changes
-
-- Kastner-style K image added to the header and PWA icons
-- Dark red K tile with warm yellow K and outlined border treatment
-- Preview background changed to calming green and pink hues
-- Preview is intentionally simplified for fast reading
-- Preview shows the next three school days at once
-- Each preview row shows only period/class and time
-- Teachers, rooms, breaks, lunch, countdowns, and affirmations are removed from preview
-- Floating PREVIEW MODE bar remains visible with Return to Today
-- Today's normal dashboard still has full class details
-- Dark/light theme remains available
-- Notes and Google Calendar reminder tools remain available
-
-## Update GitHub Pages
-
-1. Unzip this package.
-2. Replace the existing repository files with these files.
-3. Commit the changes.
-4. Wait for GitHub Pages to redeploy.
-5. Refresh once on the phone while online so the V4 service worker replaces the older cached app.
-
-## Calendar exceptions
-
-This follows the supplied bell schedule. It does not yet automatically account for school holidays, minimum days, rallies, testing schedules, or one-off schedule changes.
+Replace the files in your repository with the files in this package, commit the update, then refresh the site once online so the new service worker and assets load.

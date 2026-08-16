@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#111827" />
   <meta name="description" content="Evelyn's Kastner Intermediate school schedule dashboard." />
+  <link rel="icon" type="image/png" sizes="32x32" href="./kastner-k.png" />
+  <link rel="shortcut icon" href="./kastner-k.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="./kastner-k-192.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <title>Evelyn's Kastner Schedule</title>
 
@@ -840,7 +843,7 @@
     }
 
     body.preview-mode .app {
-      padding-top: calc(max(18px, env(safe-area-inset-top)) + 64px);
+      padding-top: calc(max(18px, env(safe-area-inset-top)) + 40px);
     }
 
     .dashboard-controls {
@@ -1470,10 +1473,174 @@
       }
     }
 
-  </style>
+  
+    /* =====================================================
+       V4.2: DARK DEFAULT + AVOCADO + CLEAN PREVIEW
+       ===================================================== */
+
+    .dashboard-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .theme-toggle-button {
+      display: none !important;
+    }
+
+    .primary-note-action {
+      background: #34c759 !important;
+      color: #08120a !important;
+      border: 0 !important;
+      box-shadow: 0 10px 22px rgba(52,199,89,.22);
+    }
+
+    .calendar-note-action {
+      background: #0a84ff !important;
+      color: #ffffff !important;
+      border: 0 !important;
+      box-shadow: 0 10px 22px rgba(10,132,255,.22);
+    }
+
+    body.preview-mode .topbar,
+    body.preview-mode .dashboard-controls {
+      display: none !important;
+    }
+
+    body.preview-mode .app {
+      padding-top: calc(max(18px, env(safe-area-inset-top)) + 40px);
+    }
+
+    .avocado-float {
+      position: fixed;
+      left: max(14px, env(safe-area-inset-left));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 70;
+      width: 86px;
+      height: 86px;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      animation: avocadoBob 2.4s ease-in-out infinite, avocadoSwing 1.35s ease-in-out infinite alternate;
+    }
+
+    .avocado-float img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 24px rgba(0,0,0,.28));
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .avocado-smile {
+      position: absolute;
+      top: -6px;
+      right: -4px;
+      display: grid;
+      place-items: center;
+      min-width: 28px;
+      height: 28px;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.95);
+      color: #172033;
+      font-size: 15px;
+      box-shadow: 0 10px 18px rgba(0,0,0,.18);
+    }
+
+    .dark-mode .avocado-smile {
+      background: rgba(255,255,255,.96);
+      color: #172033;
+    }
+
+    .avocado-float.hide {
+      display: none;
+    }
+
+    @keyframes avocadoBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @keyframes avocadoSwing {
+      0% { rotate: -4deg; }
+      100% { rotate: 4deg; }
+    }
+
+    @media (max-width: 560px) {
+      .dashboard-controls {
+        display: block;
+      }
+
+      .avocado-float {
+        width: 74px;
+        height: 74px;
+      }
+    }
+
+  
+    /* V4.3 locked UI refinements */
+    body.preview-mode .topbar,
+    body.preview-mode .dashboard-controls {
+      display: none !important;
+    }
+
+    .theme-toggle-button {
+      display: none !important;
+    }
+
+    .primary-note-action {
+      background: #39ff74 !important;
+      color: #07130a !important;
+      border: none !important;
+      box-shadow: 0 10px 24px rgba(57,255,116,.24) !important;
+    }
+
+    .calendar-note-action {
+      background: #1e90ff !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 10px 24px rgba(30,144,255,.24) !important;
+    }
+
+    .avocado-float {
+      animation:
+        avocadoBounce 1.55s ease-in-out infinite,
+        avocadoTilt .75s ease-in-out infinite alternate;
+      transform-origin: 50% 85%;
+    }
+
+    .avocado-float::after {
+      content: "tap me 😊";
+      position: absolute;
+      left: 58px;
+      bottom: 8px;
+      white-space: nowrap;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.94);
+      color: #172033;
+      font-size: 10px;
+      font-weight: 800;
+      box-shadow: 0 6px 16px rgba(0,0,0,.16);
+      pointer-events: none;
+    }
+
+    @keyframes avocadoBounce {
+      0%,100% { transform: translateY(0) scale(1); }
+      45% { transform: translateY(-10px) scale(1.03); }
+      65% { transform: translateY(-4px) scale(.99); }
+    }
+
+    @keyframes avocadoTilt {
+      0% { rotate: -5deg; }
+      100% { rotate: 5deg; }
+    }
+
+</style>
 </head>
 
-<body>
+<body class="dark-mode">
 <div class="preview-floating-bar" id="previewFloatingBar" aria-live="polite">
   <div class="preview-floating-copy">
     <span class="preview-floating-badge">PREVIEW MODE</span>
@@ -1511,11 +1678,6 @@
     <button class="preview-launch-button" id="previewLaunchButton" type="button" onclick="enterPreviewMode()">
       <span>📅</span>
       <span>Preview Next 3 Days</span>
-    </button>
-
-    <button class="theme-toggle-button" id="themeToggleButton" type="button" onclick="toggleTheme()">
-      <span id="themeToggleIcon">🌙</span>
-      <span id="themeToggleText">Dark</span>
     </button>
   </div>
 
@@ -1693,33 +1855,16 @@ function setTodayView() {
 }
 
 function toggleTheme() {
-  const isDark = document.body.classList.toggle("dark-mode");
-  localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
-  updateThemeButton();
+  document.body.classList.add("dark-mode");
+  localStorage.setItem(THEME_STORAGE_KEY, "dark");
 }
 
 function applyStoredTheme() {
-  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-
-  if (storedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-  } else if (storedTheme === "light") {
-    document.body.classList.remove("dark-mode");
-  } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    document.body.classList.add("dark-mode");
-  }
-
-  updateThemeButton();
+  document.body.classList.add("dark-mode");
+  localStorage.setItem(THEME_STORAGE_KEY, "dark");
 }
 
-function updateThemeButton() {
-  const isDark = document.body.classList.contains("dark-mode");
-  const icon = document.getElementById("themeToggleIcon");
-  const text = document.getElementById("themeToggleText");
-
-  if (icon) icon.textContent = isDark ? "☀️" : "🌙";
-  if (text) text.textContent = isDark ? "Light" : "Dark";
-}
+function updateThemeButton() {}
 
 function renderPreviewThreeDays(dates) {
   const container = document.getElementById("previewThreeDays");
@@ -2258,6 +2403,12 @@ function setNoSchool() {
 }
 
 
+
+function closeAvocado() {
+  const mascot = document.getElementById("avocadoFloat");
+  if (mascot) mascot.classList.add("hide");
+}
+
 /* =========================================================
    SAVED NOTES + GOOGLE CALENDAR
    ========================================================= */
@@ -2561,6 +2712,12 @@ if ("serviceWorker" in navigator) {
     </div>
   </section>
 </div>
+
+
+<button class="avocado-float" id="avocadoFloat" type="button" onclick="closeAvocado()" aria-label="Close avocado friend">
+  <span class="avocado-smile">😊</span>
+  <img src="./dancing-avocado.png" alt="Cute dancing avocado" />
+</button>
 
 </body>
 </html>

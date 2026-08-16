@@ -1,5 +1,5 @@
-const CACHE_NAME = "kastner-schedule-v4";
-const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./kastner-k.png", "./kastner-k-192.png", "./kastner-k-512.png"];
+const CACHE_NAME = "kastner-schedule-v4-3";
+const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./kastner-k.png", "./kastner-k-192.png", "./kastner-k-512.png", "./dancing-avocado.png"];
 
 self.addEventListener("install", event => {
   event.waitUntil(
