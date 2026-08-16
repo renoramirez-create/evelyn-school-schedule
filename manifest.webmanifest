@@ -1,0 +1,9 @@
+{
+  "name": "Evelyn's Kastner Schedule",
+  "short_name": "Kastner Schedule",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f9",
+  "theme_color": "#111827",
+  "description": "A phone-friendly Kastner Intermediate daily schedule dashboard."
+}

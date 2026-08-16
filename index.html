@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="description" content="Evelyn's Kastner Intermediate school schedule dashboard." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <title>Evelyn's Kastner Schedule</title>
+
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #70798b;
+      --border: #e4e8ef;
+
+      --p1: #6d4bd1;
+      --p2: #3478d4;
+      --p3: #22a06b;
+      --p4: #f39a31;
+      --p6: #e34c4c;
+      --p7: #a23db8;
+
+      --break: #f1b84b;
+      --lunch: #6dbb78;
+      --intervention: #3e67b1;
+
+      --shadow: 0 10px 30px rgba(25, 35, 55, 0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top right, rgba(109,75,209,.08), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .app {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding:
+        max(18px, env(safe-area-inset-top))
+        16px
+        max(30px, env(safe-area-inset-bottom));
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .school-name {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .school-subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .clock-wrap {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    #clock {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    #todayDate {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .affirmation-popup {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 14px;
+      padding: 14px 15px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 28px rgba(25,35,55,.09);
+      backdrop-filter: blur(18px);
+      animation: affirmationPop .55s cubic-bezier(.2,.9,.25,1.25);
+      transform-origin: top center;
+    }
+
+    .affirmation-emoji {
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #f4efff, #edf5ff);
+      font-size: 25px;
+      animation: emojiBounce .8s ease .3s;
+    }
+
+    .affirmation-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .affirmation-label {
+      margin-bottom: 2px;
+      color: #8a94a7;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .affirmation-message {
+      color: #172033;
+      font-size: 15px;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
+    .affirmation-close {
+      flex-shrink: 0;
+      width: 31px;
+      height: 31px;
+      border: 0;
+      border-radius: 50%;
+      background: #f1f3f7;
+      color: #758096;
+      font-size: 21px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .affirmation-popup.hide { display: none; }
+
+    @keyframes affirmationPop {
+      0% { opacity: 0; transform: translateY(-18px) scale(.94); }
+      65% { opacity: 1; transform: translateY(3px) scale(1.015); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes emojiBounce {
+      0% { transform: scale(.8) rotate(-7deg); }
+      50% { transform: scale(1.18) rotate(6deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      border-radius: 28px;
+      color: #fff;
+      background: linear-gradient(135deg, #18233a 0%, #24375d 58%, #324d82 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      right: -80px;
+      top: -95px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.72);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #77efaa;
+      box-shadow: 0 0 0 5px rgba(119,239,170,.12);
+    }
+
+    #currentClass {
+      position: relative;
+      z-index: 1;
+      margin: 10px 0 3px;
+      font-size: 30px;
+      font-weight: 850;
+      letter-spacing: -1px;
+    }
+
+    #currentTime {
+      position: relative;
+      z-index: 1;
+      font-size: 17px;
+      font-weight: 650;
+      color: rgba(255,255,255,.9);
+    }
+
+    .hero-details {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .hero-chip {
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,.09);
+      font-size: 13px;
+      color: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
+    }
+
+    .countdown {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      display: flex;
+      align-items: flex-end;
+      gap: 7px;
+    }
+
+    #countdownNumber {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    #countdownLabel {
+      padding-bottom: 4px;
+      color: rgba(255,255,255,.7);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 17px;
+      box-shadow: 0 5px 18px rgba(25,35,55,.04);
+    }
+
+    .card-label {
+      margin-bottom: 9px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    #nextClass, #dayType {
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    #nextTime {
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    #nextDetails, #dayDescription {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .section-title {
+      margin: 24px 2px 10px;
+      font-size: 17px;
+      font-weight: 850;
+      letter-spacing: -.3px;
+    }
+
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .schedule-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 6px 1fr auto;
+      gap: 13px;
+      align-items: center;
+      min-height: 72px;
+      padding: 12px 14px 12px 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      transition: .2s ease;
+    }
+
+    .schedule-item.current {
+      border-color: rgba(54,95,160,.45);
+      box-shadow: 0 8px 24px rgba(50,83,130,.10);
+      transform: scale(1.008);
+    }
+
+    .schedule-item.past { opacity: .48; }
+
+    .period-color {
+      width: 6px;
+      height: 43px;
+      border-radius: 20px;
+    }
+
+    .item-main { min-width: 0; }
+
+    .item-title {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .item-meta {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .item-time {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .item-duration {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .empty {
+      padding: 28px 18px;
+      text-align: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 20px 5px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 560px) {
+      .app { padding-left: 12px; padding-right: 12px; }
+      .topbar { align-items: center; }
+      .school-name { font-size: 20px; }
+      #clock { font-size: 18px; }
+      .hero { padding: 19px; }
+      #currentClass { font-size: 27px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div>
+      <h1 class="school-name">Evelyn's Kastner Schedule</h1>
+      <div class="school-subtitle">Fresno, California</div>
+    </div>
+
+    <div class="clock-wrap">
+      <div id="clock">--:--</div>
+      <div id="todayDate">Loading...</div>
+    </div>
+  </div>
+
+  <div id="affirmationPopup" class="affirmation-popup">
+    <div class="affirmation-emoji" id="affirmationEmoji">✨</div>
+
+    <div class="affirmation-content">
+      <div class="affirmation-label">A little reminder</div>
+      <div class="affirmation-message" id="affirmationMessage">
+        You've got this, Evelyn!
+      </div>
+    </div>
+
+    <button class="affirmation-close" onclick="closeAffirmation()" aria-label="Close message">×</button>
+  </div>
+
+  <section class="hero">
+    <div class="eyebrow">
+      <span class="pulse-dot"></span>
+      <span id="statusLabel">Coming Up</span>
+    </div>
+
+    <div id="currentClass">Loading schedule...</div>
+    <div id="currentTime"></div>
+
+    <div class="hero-details">
+      <span class="hero-chip" id="currentRoom">Room</span>
+      <span class="hero-chip" id="currentTeacher">Teacher</span>
+      <span class="hero-chip" id="currentPeriod">Period</span>
+    </div>
+
+    <div class="countdown">
+      <div id="countdownNumber">--</div>
+      <div id="countdownLabel">minutes</div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="info-card">
+      <div class="card-label">Next Period</div>
+      <div id="nextClass">--</div>
+      <div id="nextTime">--</div>
+      <div id="nextDetails">--</div>
+    </section>
+
+    <section class="info-card">
+      <div class="card-label">Today's Schedule</div>
+      <div id="dayType">--</div>
+      <div id="dayDescription">--</div>
+    </section>
+  </div>
+
+  <div class="section-title">Today</div>
+  <div id="scheduleList" class="schedule-list"></div>
+
+  <div class="footer">
+    Kastner Intermediate • Clovis Unified School District<br>
+    Schedule automatically follows Fresno, California time.
+  </div>
+
+</div>
+
+<script>
+const TIME_ZONE = "America/Los_Angeles";
+
+const classes = {
+  1: { name: "English 8", teacher: "Davidson Barcellos, S", room: "F2", color: "#6d4bd1" },
+  2: { name: "US History 8", teacher: "Davidson Barcellos, S", room: "F2", color: "#3478d4" },
+  3: { name: "PE I", teacher: "Gray, S", room: "PE GYM", color: "#22a06b" },
+  4: { name: "Science 8 I", teacher: "Warner, R", room: "C1", color: "#f39a31" },
+  6: { name: "Advanced Art 7/8", teacher: "Lowder, R", room: "K2", color: "#e34c4c" },
+  7: { name: "Math 8", teacher: "Frye, T", room: "E6", color: "#a23db8" }
+};
+
+const regularSchedule = [
+  { type: "class", period: 1, start: "08:20", end: "09:14" },
+  { type: "class", period: 2, start: "09:19", end: "10:13" },
+  { type: "break", name: "Break", start: "10:13", end: "10:28", color: "#f1b84b" },
+  { type: "class", period: 3, start: "10:33", end: "11:27" },
+  { type: "class", period: 4, start: "11:32", end: "12:26" },
+  { type: "lunch", name: "Lunch", start: "12:26", end: "13:07", color: "#6dbb78" },
+  { type: "class", period: 6, start: "13:12", end: "14:06" },
+  { type: "class", period: 7, start: "14:11", end: "15:05" }
+];
+
+const tuesdaySchedule = [
+  { type: "class", period: 1, nameOverride: "English 8 / Advisory", start: "08:20", end: "09:26" },
+  { type: "class", period: 2, start: "09:31", end: "10:23" },
+  { type: "break", name: "Break", start: "10:23", end: "10:37", color: "#f1b84b" },
+  { type: "class", period: 3, start: "10:42", end: "11:34" },
+  { type: "class", period: 4, start: "11:39", end: "12:31" },
+  { type: "lunch", name: "Lunch", start: "12:31", end: "13:11", color: "#6dbb78" },
+  { type: "class", period: 6, start: "13:16", end: "14:08" },
+  { type: "class", period: 7, start: "14:13", end: "15:05" }
+];
+
+const wednesdaySchedule = [
+  { type: "class", period: 2, start: "08:25", end: "10:00" },
+  { type: "break", name: "Break", start: "10:00", end: "10:15", color: "#f1b84b" },
+  { type: "class", period: 4, start: "10:20", end: "11:55" },
+  { type: "lunch", name: "Lunch", start: "11:55", end: "12:35", color: "#6dbb78" },
+  { type: "class", period: 6, start: "12:40", end: "14:15" },
+  { type: "intervention", name: "T-Bird Intervention", start: "14:20", end: "15:05", color: "#3e67b1" }
+];
+
+const thursdaySchedule = [
+  { type: "class", period: 1, start: "08:25", end: "10:00" },
+  { type: "break", name: "Break", start: "10:00", end: "10:15", color: "#f1b84b" },
+  { type: "class", period: 3, start: "10:20", end: "11:55" },
+  { type: "lunch", name: "Lunch", start: "11:55", end: "12:35", color: "#6dbb78" },
+  { type: "class", period: 7, start: "12:40", end: "14:15" },
+  { type: "intervention", name: "T-Bird Intervention", start: "14:20", end: "15:05", color: "#3e67b1" }
+];
+
+const affirmations = [
+  { emoji: "✨", message: "You've got this, Evelyn!" },
+  { emoji: "🌟", message: "Evelyn, today is yours." },
+  { emoji: "💪", message: "You're stronger than you think, Evelyn." },
+  { emoji: "🌈", message: "One step at a time, Evelyn." },
+  { emoji: "🦋", message: "Be yourself today, Evelyn." },
+  { emoji: "☀️", message: "Go make today a good one, Evelyn." },
+  { emoji: "💜", message: "You can handle this, Evelyn." },
+  { emoji: "🚀", message: "You've got places to go, Evelyn!" },
+  { emoji: "😊", message: "Don't forget to smile today, Evelyn." },
+  { emoji: "🌻", message: "Keep growing, Evelyn." },
+  { emoji: "⭐", message: "Believe in yourself today, Evelyn." },
+  { emoji: "🐝", message: "Just do your best, Evelyn." },
+  { emoji: "🎨", message: "Make today your own, Evelyn." },
+  { emoji: "🌙", message: "You don't have to have everything figured out, Evelyn." },
+  { emoji: "🩵", message: "Take your time. You've got this, Evelyn." },
+  { emoji: "🍀", message: "Good things can happen today, Evelyn." },
+  { emoji: "🎯", message: "Just focus on the next thing, Evelyn." },
+  { emoji: "🌸", message: "Be proud of yourself, Evelyn." },
+  { emoji: "😎", message: "Go be awesome, Evelyn." },
+  { emoji: "🫶", message: "Remember how loved you are, Evelyn." }
+];
+
+function getFresnoParts() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: TIME_ZONE,
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).formatToParts(new Date());
+
+  const values = {};
+  parts.forEach(part => { values[part.type] = part.value; });
+  return values;
+}
+
+function currentMinutes() {
+  const p = getFresnoParts();
+  return parseInt(p.hour) * 60 + parseInt(p.minute) + parseInt(p.second) / 60;
+}
+
+function toMinutes(time) {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function formatTime(time) {
+  const [hoursString, minutes] = time.split(":");
+  let hours = parseInt(hoursString);
+  const suffix = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+  return `${hours}:${minutes} ${suffix}`;
+}
+
+function durationMinutes(item) {
+  return toMinutes(item.end) - toMinutes(item.start);
+}
+
+function getScheduleForDay(day) {
+  if (day === "Monday") return { name: "Regular Day", description: "Periods 1, 2, 3, 4, 6 and 7", schedule: regularSchedule };
+  if (day === "Tuesday") return { name: "Tuesday", description: "Period 1 includes Advisory", schedule: tuesdaySchedule };
+  if (day === "Wednesday") return { name: "Even Block Day", description: "Periods 2, 4 and 6", schedule: wednesdaySchedule };
+  if (day === "Thursday") return { name: "Odd Block Day", description: "Periods 1, 3 and 7", schedule: thursdaySchedule };
+  if (day === "Friday") return { name: "Regular Day", description: "Periods 1, 2, 3, 4, 6 and 7", schedule: regularSchedule };
+  return { name: "Weekend", description: "No regular classes today", schedule: [] };
+}
+
+function getItemInfo(item) {
+  if (item.type === "class") {
+    const course = classes[item.period];
+    return {
+      name: item.nameOverride || course.name,
+      subtitle: `${course.teacher} • Room ${course.room}`,
+      teacher: course.teacher,
+      room: course.room,
+      period: `Period ${item.period}`,
+      color: course.color
+    };
+  }
+
+  return {
+    name: item.name,
+    subtitle:
+      item.type === "lunch" ? "Lunch break" :
+      item.type === "break" ? "Passing / break time" :
+      "Student support period",
+    teacher: "",
+    room: "",
+    period: "",
+    color: item.color || "#78849a"
+  };
+}
+
+function getDailyAffirmation() {
+  const fresnoDate = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(new Date());
+
+  let hash = 0;
+  for (let i = 0; i < fresnoDate.length; i++) {
+    hash = (hash * 31 + fresnoDate.charCodeAt(i)) >>> 0;
+  }
+  return affirmations[hash % affirmations.length];
+}
+
+function showDailyAffirmation() {
+  const affirmation = getDailyAffirmation();
+  document.getElementById("affirmationEmoji").textContent = affirmation.emoji;
+  document.getElementById("affirmationMessage").textContent = affirmation.message;
+}
+
+function closeAffirmation() {
+  document.getElementById("affirmationPopup").classList.add("hide");
+}
+
+function renderSchedule(schedule) {
+  const list = document.getElementById("scheduleList");
+  list.innerHTML = "";
+  const now = currentMinutes();
+
+  if (!schedule.length) {
+    list.innerHTML = `<div class="empty">No regular classes today.</div>`;
+    return;
+  }
+
+  schedule.forEach(item => {
+    const info = getItemInfo(item);
+    const start = toMinutes(item.start);
+    const end = toMinutes(item.end);
+
+    let statusClass = "";
+    if (now >= end) statusClass = "past";
+    if (now >= start && now < end) statusClass = "current";
+
+    const element = document.createElement("div");
+    element.className = `schedule-item ${statusClass}`;
+    element.innerHTML = `
+      <div class="period-color" style="background:${info.color};"></div>
+      <div class="item-main">
+        <div class="item-title">${info.name}</div>
+        <div class="item-meta">
+          ${item.type === "class" ? `${info.period} • ${info.subtitle}` : info.subtitle}
+        </div>
+      </div>
+      <div class="item-time">
+        ${formatTime(item.start)}<br>${formatTime(item.end)}
+        <div class="item-duration">${durationMinutes(item)} min</div>
+      </div>
+    `;
+    list.appendChild(element);
+  });
+}
+
+function updateDashboard() {
+  const parts = getFresnoParts();
+  const day = parts.weekday;
+  const today = getScheduleForDay(day);
+  const schedule = today.schedule;
+  const now = currentMinutes();
+
+  document.getElementById("clock").textContent =
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: TIME_ZONE,
+      hour: "numeric",
+      minute: "2-digit",
+      second: "2-digit"
+    }).format(new Date());
+
+  document.getElementById("todayDate").textContent = `${day}, ${parts.month} ${parts.day}`;
+  document.getElementById("dayType").textContent = today.name;
+  document.getElementById("dayDescription").textContent = today.description;
+
+  if (!schedule.length) {
+    setNoSchool();
+    renderSchedule(schedule);
+    return;
+  }
+
+  let current = null;
+  let upcoming = null;
+  let next = null;
+
+  schedule.forEach((item, index) => {
+    const start = toMinutes(item.start);
+    const end = toMinutes(item.end);
+
+    if (now >= start && now < end && !current) {
+      current = item;
+      next = schedule[index + 1] || null;
+    }
+
+    if (now < start && !upcoming) upcoming = item;
+  });
+
+  if (current) {
+    displayCurrent(current, next, now);
+  } else if (upcoming) {
+    const index = schedule.indexOf(upcoming);
+    const following = schedule[index + 1] || null;
+    displayUpcoming(upcoming, following, now);
+  } else {
+    displayDayComplete();
+  }
+
+  renderSchedule(schedule);
+}
+
+function displayCurrent(item, next, now) {
+  const info = getItemInfo(item);
+  const remaining = Math.max(0, Math.ceil(toMinutes(item.end) - now));
+
+  document.getElementById("statusLabel").textContent = item.type === "class" ? "Right Now" : "Current";
+  document.getElementById("currentClass").textContent = info.name;
+  document.getElementById("currentTime").textContent = `${formatTime(item.start)} – ${formatTime(item.end)}`;
+  document.getElementById("currentRoom").textContent = info.room ? `Room ${info.room}` : info.name;
+  document.getElementById("currentTeacher").textContent = info.teacher || "Kastner Intermediate";
+  document.getElementById("currentPeriod").textContent = info.period || `${durationMinutes(item)} minutes`;
+  document.getElementById("countdownNumber").textContent = remaining;
+  document.getElementById("countdownLabel").innerHTML = `minutes left<br>in this period`;
+
+  showNext(next);
+}
+
+function displayUpcoming(item, next, now) {
+  const info = getItemInfo(item);
+  const until = Math.max(0, Math.ceil(toMinutes(item.start) - now));
+
+  document.getElementById("statusLabel").textContent = "Coming Up";
+  document.getElementById("currentClass").textContent = info.name;
+  document.getElementById("currentTime").textContent = `Starts at ${formatTime(item.start)}`;
+  document.getElementById("currentRoom").textContent = info.room ? `Room ${info.room}` : info.name;
+  document.getElementById("currentTeacher").textContent = info.teacher || "Kastner Intermediate";
+  document.getElementById("currentPeriod").textContent = info.period || `${durationMinutes(item)} minutes`;
+  document.getElementById("countdownNumber").textContent = until;
+  document.getElementById("countdownLabel").innerHTML = `minutes until<br>it starts`;
+
+  showNext(next);
+}
+
+function showNext(item) {
+  const classEl = document.getElementById("nextClass");
+  const timeEl = document.getElementById("nextTime");
+  const detailsEl = document.getElementById("nextDetails");
+
+  if (!item) {
+    classEl.textContent = "School Day Complete";
+    timeEl.textContent = "No more periods";
+    detailsEl.textContent = "You're done for today.";
+    return;
+  }
+
+  const info = getItemInfo(item);
+  classEl.textContent = info.name;
+  timeEl.textContent = `${formatTime(item.start)} – ${formatTime(item.end)}`;
+  detailsEl.textContent =
+    item.type === "class"
+      ? `${info.period} • Room ${info.room} • ${info.teacher}`
+      : info.subtitle;
+}
+
+function displayDayComplete() {
+  document.getElementById("statusLabel").textContent = "Finished";
+  document.getElementById("currentClass").textContent = "School Day Complete";
+  document.getElementById("currentTime").textContent = "No more scheduled periods today";
+  document.getElementById("currentRoom").textContent = "Done";
+  document.getElementById("currentTeacher").textContent = "Have a great afternoon";
+  document.getElementById("currentPeriod").textContent = "Kastner";
+  document.getElementById("countdownNumber").textContent = "✓";
+  document.getElementById("countdownLabel").innerHTML = "day<br>complete";
+  showNext(null);
+}
+
+function setNoSchool() {
+  document.getElementById("statusLabel").textContent = "Weekend";
+  document.getElementById("currentClass").textContent = "No School Today";
+  document.getElementById("currentTime").textContent = "Enjoy your weekend";
+  document.getElementById("currentRoom").textContent = "Kastner";
+  document.getElementById("currentTeacher").textContent = "No regular classes";
+  document.getElementById("currentPeriod").textContent = "Weekend";
+  document.getElementById("countdownNumber").textContent = "☀";
+  document.getElementById("countdownLabel").innerHTML = "no classes<br>today";
+  showNext(null);
+}
+
+showDailyAffirmation();
+updateDashboard();
+setInterval(updateDashboard, 1000);
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
