@@ -72,23 +72,6 @@
       font-size: 14px;
     }
 
-    .clock-wrap {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    #clock {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    #todayDate {
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
     .affirmation-popup {
       display: flex;
       align-items: center;
@@ -393,14 +376,428 @@
       line-height: 1.5;
     }
 
+
+    .date-wrap {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    #viewDayLabel {
+      font-size: 12px;
+      font-weight: 850;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    #todayDate {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .day-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .view-state {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border);
+      color: #5f6a7e;
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      box-shadow: 0 4px 12px rgba(25,35,55,.04);
+    }
+
+    .view-state-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22a06b;
+      box-shadow: 0 0 0 4px rgba(34,160,107,.12);
+    }
+
+    .view-state.preview {
+      color: #6a4d07;
+      background: #fff9e8;
+      border-color: #f2d27d;
+    }
+
+    .view-state.preview .view-state-dot {
+      background: #f39a31;
+      box-shadow: 0 0 0 4px rgba(243,154,49,.14);
+    }
+
+    .next-day-button {
+      min-height: 40px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 999px;
+      background: #172033;
+      color: #fff;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(23,32,51,.12);
+    }
+
+    .next-day-button:active {
+      transform: translateY(1px);
+    }
+
+    .next-day-alert {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 14px;
+      padding: 13px 14px;
+      border-radius: 17px;
+      background: #fff4d8;
+      border: 1px solid #f0cf75;
+      color: #664b0c;
+      box-shadow: 0 8px 22px rgba(99,74,12,.08);
+    }
+
+    .next-day-alert.show {
+      display: flex;
+      animation: affirmationPop .35s ease;
+    }
+
+    .next-day-alert strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .next-day-alert span {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: #80651f;
+    }
+
+    .next-day-alert button {
+      flex-shrink: 0;
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: #6a4d07;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .floating-note-button {
+      position: fixed;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 50px;
+      padding: 0 17px;
+      border: 0;
+      border-radius: 999px;
+      background: #172033;
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(23,32,51,.24);
+    }
+
+    .floating-note-button span:first-child {
+      font-size: 19px;
+    }
+
+    .notes-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(10,15,25,.42);
+      backdrop-filter: blur(7px);
+    }
+
+    .notes-overlay.show {
+      display: flex;
+    }
+
+    .notes-sheet {
+      width: min(100%, 620px);
+      max-height: min(86vh, 780px);
+      overflow-y: auto;
+      border-radius: 28px 28px 20px 20px;
+      background: #fff;
+      padding: 10px 18px 22px;
+      box-shadow: 0 24px 70px rgba(10,15,25,.28);
+      animation: sheetUp .28s ease;
+    }
+
+    @keyframes sheetUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sheet-handle {
+      width: 42px;
+      height: 5px;
+      margin: 2px auto 12px;
+      border-radius: 999px;
+      background: #d8dce4;
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .notes-kicker {
+      color: #8a94a7;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .09em;
+    }
+
+    .notes-header h2 {
+      margin: 3px 0 0;
+      font-size: 22px;
+      letter-spacing: -.5px;
+    }
+
+    .sheet-close {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: #f1f3f7;
+      color: #687286;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .note-textarea {
+      width: 100%;
+      min-height: 104px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 14px;
+      background: #f9fafc;
+      color: var(--text);
+      font: inherit;
+      font-size: 15px;
+      line-height: 1.45;
+      outline: none;
+    }
+
+    .note-textarea:focus {
+      border-color: #9ab1db;
+      box-shadow: 0 0 0 4px rgba(52,120,212,.08);
+      background: #fff;
+    }
+
+    .reminder-label {
+      margin: 15px 2px 8px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .reminder-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .reminder-fields label span {
+      display: block;
+      margin: 0 0 5px 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .reminder-fields input {
+      width: 100%;
+      height: 45px;
+      padding: 0 11px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    .note-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .note-actions button {
+      min-height: 44px;
+      border-radius: 14px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .primary-note-action {
+      border: 0;
+      background: #172033;
+      color: #fff;
+    }
+
+    .calendar-note-action {
+      border: 1px solid #cfd6e3;
+      background: #fff;
+      color: #31415f;
+    }
+
+    .note-feedback {
+      min-height: 20px;
+      padding: 7px 2px 0;
+      color: #4f617d;
+      font-size: 12px;
+    }
+
+    .saved-notes-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 2px 8px;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .saved-notes-heading span:last-child {
+      display: grid;
+      place-items: center;
+      min-width: 25px;
+      height: 25px;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: #eef1f6;
+      color: #667085;
+      font-size: 11px;
+    }
+
+    .saved-notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .saved-note {
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fafbfc;
+    }
+
+    .saved-note-text {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .saved-note-reminder {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .saved-note-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .saved-note-actions button {
+      min-height: 32px;
+      border: 1px solid #d9dee7;
+      border-radius: 999px;
+      padding: 0 10px;
+      background: #fff;
+      color: #46546c;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .saved-note-actions .delete-note {
+      color: #a23e3e;
+    }
+
+    .empty-notes {
+      padding: 18px 12px;
+      text-align: center;
+      border: 1px dashed #d8dde6;
+      border-radius: 15px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .notes-storage-tip {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 13px;
+      background: #f5f7fa;
+      color: #7a8496;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
     @media (max-width: 560px) {
       .app { padding-left: 12px; padding-right: 12px; }
       .topbar { align-items: center; }
       .school-name { font-size: 20px; }
-      #clock { font-size: 18px; }
       .hero { padding: 19px; }
       #currentClass { font-size: 27px; }
       .grid { grid-template-columns: 1fr; }
+      .day-nav { align-items: stretch; }
+      .next-day-button { flex: 1; }
+      .view-state { flex-shrink: 0; }
+      .next-day-alert { align-items: flex-start; }
+      .reminder-fields,
+      .note-actions { grid-template-columns: 1fr; }
+      .notes-overlay { padding: 0; }
+      .notes-sheet {
+        width: 100%;
+        max-height: 90vh;
+        border-radius: 28px 28px 0 0;
+        padding-bottom: max(22px, env(safe-area-inset-bottom));
+      }
     }
   </style>
 </head>
@@ -411,13 +808,32 @@
   <div class="topbar">
     <div>
       <h1 class="school-name">Evelyn's Kastner Schedule</h1>
-      <div class="school-subtitle">Fresno, California</div>
+      <div class="school-subtitle" id="viewSubtitle">Fresno, California</div>
     </div>
 
-    <div class="clock-wrap">
-      <div id="clock">--:--</div>
+    <div class="date-wrap">
+      <div id="viewDayLabel">Today</div>
       <div id="todayDate">Loading...</div>
     </div>
+  </div>
+
+  <div class="day-nav">
+    <div class="view-state" id="viewState">
+      <span class="view-state-dot"></span>
+      <span id="viewStateText">TODAY</span>
+    </div>
+
+    <button class="next-day-button" id="nextDayButton" type="button" onclick="toggleDayView()">
+      View Next School Day →
+    </button>
+  </div>
+
+  <div class="next-day-alert" id="nextDayAlert" aria-live="polite">
+    <div>
+      <strong>Previewing the next school day</strong>
+      <span id="nextDayAlertDate"></span>
+    </div>
+    <button type="button" onclick="setTodayView()">Back to Today</button>
   </div>
 
   <div id="affirmationPopup" class="affirmation-popup">
@@ -481,6 +897,73 @@
 
 <script>
 const TIME_ZONE = "America/Los_Angeles";
+const NOTES_STORAGE_KEY = "evelyn-kastner-notes-v1";
+
+let viewingNextSchoolDay = false;
+
+function getFresnoCalendarDate() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date());
+
+  const values = {};
+  parts.forEach(part => { values[part.type] = part.value; });
+
+  return new Date(Date.UTC(
+    Number(values.year),
+    Number(values.month) - 1,
+    Number(values.day),
+    12, 0, 0
+  ));
+}
+
+function addCalendarDays(date, days) {
+  const copy = new Date(date.getTime());
+  copy.setUTCDate(copy.getUTCDate() + days);
+  return copy;
+}
+
+function weekdayNameForDate(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+    weekday: "long"
+  }).format(date);
+}
+
+function prettyDateForDate(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+    weekday: "long",
+    month: "long",
+    day: "numeric"
+  }).format(date);
+}
+
+function getNextSchoolDate() {
+  let date = addCalendarDays(getFresnoCalendarDate(), 1);
+
+  while (["Saturday", "Sunday"].includes(weekdayNameForDate(date))) {
+    date = addCalendarDays(date, 1);
+  }
+
+  return date;
+}
+
+function toggleDayView() {
+  viewingNextSchoolDay = !viewingNextSchoolDay;
+  updateDashboard();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function setTodayView() {
+  viewingNextSchoolDay = false;
+  updateDashboard();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 
 const classes = {
   1: { name: "English 8", teacher: "Davidson Barcellos, S", room: "F2", color: "#6d4bd1" },
@@ -654,13 +1137,13 @@ function closeAffirmation() {
   document.getElementById("affirmationPopup").classList.add("hide");
 }
 
-function renderSchedule(schedule) {
+function renderSchedule(schedule, isPreview = false) {
   const list = document.getElementById("scheduleList");
   list.innerHTML = "";
   const now = currentMinutes();
 
   if (!schedule.length) {
-    list.innerHTML = `<div class="empty">No regular classes today.</div>`;
+    list.innerHTML = `<div class="empty">No regular classes for this day.</div>`;
     return;
   }
 
@@ -670,8 +1153,11 @@ function renderSchedule(schedule) {
     const end = toMinutes(item.end);
 
     let statusClass = "";
-    if (now >= end) statusClass = "past";
-    if (now >= start && now < end) statusClass = "current";
+
+    if (!isPreview) {
+      if (now >= end) statusClass = "past";
+      if (now >= start && now < end) statusClass = "current";
+    }
 
     const element = document.createElement("div");
     element.className = `schedule-item ${statusClass}`;
@@ -693,27 +1179,49 @@ function renderSchedule(schedule) {
 }
 
 function updateDashboard() {
-  const parts = getFresnoParts();
-  const day = parts.weekday;
-  const today = getScheduleForDay(day);
-  const schedule = today.schedule;
+  const todayDate = getFresnoCalendarDate();
+  const targetDate = viewingNextSchoolDay ? getNextSchoolDate() : todayDate;
+  const day = weekdayNameForDate(targetDate);
+  const dayInfo = getScheduleForDay(day);
+  const schedule = dayInfo.schedule;
   const now = currentMinutes();
 
-  document.getElementById("clock").textContent =
-    new Intl.DateTimeFormat("en-US", {
-      timeZone: TIME_ZONE,
-      hour: "numeric",
-      minute: "2-digit",
-      second: "2-digit"
-    }).format(new Date());
+  document.getElementById("todayDate").textContent = prettyDateForDate(targetDate);
+  document.getElementById("dayType").textContent = dayInfo.name;
+  document.getElementById("dayDescription").textContent = dayInfo.description;
 
-  document.getElementById("todayDate").textContent = `${day}, ${parts.month} ${parts.day}`;
-  document.getElementById("dayType").textContent = today.name;
-  document.getElementById("dayDescription").textContent = today.description;
+  const viewState = document.getElementById("viewState");
+  const viewStateText = document.getElementById("viewStateText");
+  const nextDayButton = document.getElementById("nextDayButton");
+  const nextDayAlert = document.getElementById("nextDayAlert");
+  const nextDayAlertDate = document.getElementById("nextDayAlertDate");
+  const viewDayLabel = document.getElementById("viewDayLabel");
+  const viewSubtitle = document.getElementById("viewSubtitle");
+
+  if (viewingNextSchoolDay) {
+    viewState.classList.add("preview");
+    viewStateText.textContent = "NEXT SCHOOL DAY";
+    nextDayButton.textContent = "← Back to Today";
+    nextDayAlert.classList.add("show");
+    nextDayAlertDate.textContent = prettyDateForDate(targetDate);
+    viewDayLabel.textContent = "Preview";
+    viewSubtitle.textContent = "Viewing ahead • Fresno, California";
+
+    displayPreview(schedule, day);
+    renderSchedule(schedule, true);
+    return;
+  }
+
+  viewState.classList.remove("preview");
+  viewStateText.textContent = "TODAY";
+  nextDayButton.textContent = "View Next School Day →";
+  nextDayAlert.classList.remove("show");
+  viewDayLabel.textContent = "Today";
+  viewSubtitle.textContent = "Fresno, California";
 
   if (!schedule.length) {
     setNoSchool();
-    renderSchedule(schedule);
+    renderSchedule(schedule, false);
     return;
   }
 
@@ -743,7 +1251,37 @@ function updateDashboard() {
     displayDayComplete();
   }
 
-  renderSchedule(schedule);
+  renderSchedule(schedule, false);
+}
+
+function displayPreview(schedule, day) {
+  if (!schedule.length) {
+    document.getElementById("statusLabel").textContent = "Next School Day";
+    document.getElementById("currentClass").textContent = "No Classes";
+    document.getElementById("currentTime").textContent = day;
+    document.getElementById("currentRoom").textContent = "Preview";
+    document.getElementById("currentTeacher").textContent = "No regular schedule";
+    document.getElementById("currentPeriod").textContent = day;
+    document.getElementById("countdownNumber").textContent = "✓";
+    document.getElementById("countdownLabel").innerHTML = "schedule<br>preview";
+    showNext(null);
+    return;
+  }
+
+  const first = schedule[0];
+  const second = schedule[1] || null;
+  const info = getItemInfo(first);
+
+  document.getElementById("statusLabel").textContent = "First Up";
+  document.getElementById("currentClass").textContent = info.name;
+  document.getElementById("currentTime").textContent = `${formatTime(first.start)} – ${formatTime(first.end)}`;
+  document.getElementById("currentRoom").textContent = info.room ? `Room ${info.room}` : info.name;
+  document.getElementById("currentTeacher").textContent = info.teacher || "Kastner Intermediate";
+  document.getElementById("currentPeriod").textContent = info.period || `${durationMinutes(first)} minutes`;
+  document.getElementById("countdownNumber").textContent = day.slice(0, 3).toUpperCase();
+  document.getElementById("countdownLabel").innerHTML = "next school<br>day preview";
+
+  showNext(second);
 }
 
 function displayCurrent(item, next, now) {
@@ -823,9 +1361,243 @@ function setNoSchool() {
   showNext(null);
 }
 
+
+/* =========================================================
+   SAVED NOTES + GOOGLE CALENDAR
+   ========================================================= */
+
+function loadNotes() {
+  try {
+    return JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY) || "[]");
+  } catch (error) {
+    return [];
+  }
+}
+
+function storeNotes(notes) {
+  localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
+}
+
+function openNotes() {
+  document.getElementById("notesOverlay").classList.add("show");
+  renderSavedNotes();
+
+  if (!document.getElementById("reminderDate").value) {
+    const date = viewingNextSchoolDay ? getNextSchoolDate() : getFresnoCalendarDate();
+    document.getElementById("reminderDate").value = isoDateOnly(date);
+  }
+
+  setTimeout(() => document.getElementById("noteText").focus(), 120);
+}
+
+function closeNotes() {
+  document.getElementById("notesOverlay").classList.remove("show");
+  document.getElementById("noteFeedback").textContent = "";
+}
+
+function closeNotesFromOverlay(event) {
+  if (event.target.id === "notesOverlay") closeNotes();
+}
+
+function isoDateOnly(date) {
+  const y = date.getUTCFullYear();
+  const m = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const d = String(date.getUTCDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function saveNote() {
+  const text = document.getElementById("noteText").value.trim();
+  const date = document.getElementById("reminderDate").value;
+  const time = document.getElementById("reminderTime").value;
+  const feedback = document.getElementById("noteFeedback");
+
+  if (!text) {
+    feedback.textContent = "Type a note first.";
+    return;
+  }
+
+  const notes = loadNotes();
+
+  notes.unshift({
+    id: Date.now().toString(),
+    text,
+    date,
+    time,
+    createdAt: new Date().toISOString()
+  });
+
+  storeNotes(notes.slice(0, 40));
+
+  document.getElementById("noteText").value = "";
+  document.getElementById("reminderTime").value = "";
+  feedback.textContent = "Saved on this phone ✓";
+
+  renderSavedNotes();
+}
+
+function renderSavedNotes() {
+  const list = document.getElementById("savedNotesList");
+  const count = document.getElementById("savedNoteCount");
+  const notes = loadNotes();
+
+  count.textContent = notes.length;
+
+  if (!notes.length) {
+    list.innerHTML = `<div class="empty-notes">No saved notes yet.</div>`;
+    return;
+  }
+
+  list.innerHTML = notes.map(note => {
+    const reminderText =
+      note.date && note.time
+        ? `Reminder: ${formatSavedReminder(note.date, note.time)}`
+        : note.date
+        ? `Date: ${formatSavedDate(note.date)}`
+        : "Quick note";
+
+    const calendarButton =
+      note.date && note.time
+        ? `<button type="button" onclick="openSavedNoteInGoogleCalendar('${note.id}')">Calendar</button>`
+        : "";
+
+    return `
+      <div class="saved-note">
+        <div class="saved-note-text">${escapeHtml(note.text)}</div>
+        <div class="saved-note-reminder">${reminderText}</div>
+        <div class="saved-note-actions">
+          <button type="button" onclick="copySavedNote('${note.id}')">Copy</button>
+          ${calendarButton}
+          <button class="delete-note" type="button" onclick="deleteSavedNote('${note.id}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function escapeHtml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function formatSavedDate(dateString) {
+  const [y, m, d] = dateString.split("-").map(Number);
+  const date = new Date(Date.UTC(y, m - 1, d, 12));
+
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  }).format(date);
+}
+
+function formatSavedReminder(dateString, timeString) {
+  return `${formatSavedDate(dateString)} at ${formatTime(timeString)}`;
+}
+
+async function copySavedNote(id) {
+  const note = loadNotes().find(item => item.id === id);
+  if (!note) return;
+
+  let copyText = note.text;
+
+  if (note.date && note.time) {
+    copyText += `\n${formatSavedReminder(note.date, note.time)}`;
+  }
+
+  try {
+    await navigator.clipboard.writeText(copyText);
+    document.getElementById("noteFeedback").textContent = "Copied ✓";
+  } catch (error) {
+    document.getElementById("noteFeedback").textContent = "Copy was blocked by the browser.";
+  }
+}
+
+function deleteSavedNote(id) {
+  const notes = loadNotes().filter(item => item.id !== id);
+  storeNotes(notes);
+  renderSavedNotes();
+  document.getElementById("noteFeedback").textContent = "Note deleted.";
+}
+
+function googleCalendarUrl(text, date, time) {
+  if (!text || !date || !time) return null;
+
+  const start = compactGoogleDate(date, time);
+  const end = addMinutesToGoogleDate(date, time, 30);
+
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: `Evelyn Reminder: ${text.slice(0, 70)}`,
+    details: text,
+    dates: `${start}/${end}`,
+    ctz: TIME_ZONE
+  });
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+function compactGoogleDate(date, time) {
+  return `${date.replaceAll("-", "")}T${time.replace(":", "")}00`;
+}
+
+function addMinutesToGoogleDate(date, time, minutesToAdd) {
+  const [y, m, d] = date.split("-").map(Number);
+  const [h, min] = time.split(":").map(Number);
+
+  const dt = new Date(Date.UTC(y, m - 1, d, h, min + minutesToAdd, 0));
+
+  const yy = dt.getUTCFullYear();
+  const mm = String(dt.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(dt.getUTCDate()).padStart(2, "0");
+  const hh = String(dt.getUTCHours()).padStart(2, "0");
+  const mi = String(dt.getUTCMinutes()).padStart(2, "0");
+
+  return `${yy}${mm}${dd}T${hh}${mi}00`;
+}
+
+function openDraftInGoogleCalendar() {
+  const text = document.getElementById("noteText").value.trim();
+  const date = document.getElementById("reminderDate").value;
+  const time = document.getElementById("reminderTime").value;
+  const feedback = document.getElementById("noteFeedback");
+
+  if (!text) {
+    feedback.textContent = "Type the reminder first.";
+    return;
+  }
+
+  if (!date || !time) {
+    feedback.textContent = "Choose a date and time for a calendar reminder.";
+    return;
+  }
+
+  const url = googleCalendarUrl(text, date, time);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function openSavedNoteInGoogleCalendar(id) {
+  const note = loadNotes().find(item => item.id === id);
+
+  if (!note || !note.date || !note.time) return;
+
+  const url = googleCalendarUrl(note.text, note.date, note.time);
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeNotes();
+});
+
 showDailyAffirmation();
+renderSavedNotes();
 updateDashboard();
-setInterval(updateDashboard, 1000);
+setInterval(updateDashboard, 15000);
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -833,5 +1605,65 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+
+<button class="floating-note-button" type="button" onclick="openNotes()" aria-label="Open saved notes">
+  <span>📝</span>
+  <span>Note</span>
+</button>
+
+<div class="notes-overlay" id="notesOverlay" onclick="closeNotesFromOverlay(event)">
+  <section class="notes-sheet" role="dialog" aria-modal="true" aria-labelledby="notesTitle">
+    <div class="sheet-handle"></div>
+
+    <div class="notes-header">
+      <div>
+        <div class="notes-kicker">EVELYN'S NOTES</div>
+        <h2 id="notesTitle">Save a reminder</h2>
+      </div>
+
+      <button class="sheet-close" type="button" onclick="closeNotes()" aria-label="Close notes">×</button>
+    </div>
+
+    <textarea
+      id="noteText"
+      class="note-textarea"
+      maxlength="300"
+      placeholder="Locker number, something to bring, homework reminder..."
+    ></textarea>
+
+    <div class="reminder-label">Optional calendar reminder</div>
+
+    <div class="reminder-fields">
+      <label>
+        <span>Date</span>
+        <input id="reminderDate" type="date" />
+      </label>
+
+      <label>
+        <span>Time</span>
+        <input id="reminderTime" type="time" />
+      </label>
+    </div>
+
+    <div class="note-actions">
+      <button class="primary-note-action" type="button" onclick="saveNote()">Save Note</button>
+      <button class="calendar-note-action" type="button" onclick="openDraftInGoogleCalendar()">Add to Google Calendar</button>
+    </div>
+
+    <div class="note-feedback" id="noteFeedback" aria-live="polite"></div>
+
+    <div class="saved-notes-heading">
+      <span>Saved notes</span>
+      <span id="savedNoteCount">0</span>
+    </div>
+
+    <div class="saved-notes-list" id="savedNotesList"></div>
+
+    <div class="notes-storage-tip">
+      Notes are saved only on this phone/browser. Calendar reminders are saved to Google Calendar when you choose that option.
+    </div>
+  </section>
+</div>
+
 </body>
 </html>

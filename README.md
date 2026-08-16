@@ -1,47 +1,41 @@
 # Evelyn's Kastner Schedule
 
-A mobile-first school schedule dashboard for Kastner Intermediate in Fresno, California.
+A mobile-first school schedule dashboard for Kastner Intermediate.
 
 ## Features
 
-- Live Fresno time using `America/Los_Angeles`
+- Uses Fresno, California (`America/Los_Angeles`) for schedule logic
 - No Period 0
-- Monday/Friday regular schedule
-- Tuesday advisory schedule
-- Wednesday even block schedule
-- Thursday odd block schedule
 - Color-matched periods
-- Current / coming-up class dashboard
-- Next period card
+- Current / coming-up period dashboard
+- Clear **View Next School Day** preview that skips weekends
+- Persistent warning banner while previewing another day so it cannot be confused with today
 - Daily affirmation for Evelyn with emoji
+- Floating **Note** button
+- Quick notes saved in the browser with localStorage
+- Copy saved notes to the clipboard
+- Optional date/time reminders
+- Open a saved reminder in Google Calendar with the event prefilled
 - Mobile-friendly layout
-- Basic PWA support for adding to an Android home screen
+- PWA support for adding to an Android home screen
 - Offline cache after the first successful visit
 
-## Deploy with GitHub Pages
+## Deploy or update with GitHub
 
-1. Create a new GitHub repository.
-2. Upload all files in this folder to the repository root.
-3. Open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select your main branch and `/ (root)`.
-6. Save.
-7. GitHub will provide a public URL for the schedule.
+If replacing the previous version:
 
-## Add to Android Home Screen
+1. Open the GitHub repository.
+2. Upload/replace `index.html`, `service-worker.js`, `manifest.webmanifest`, and `README.md`.
+3. Commit the changes.
+4. GitHub Pages will redeploy automatically.
+5. On the phone, refresh the site once while online so the new service worker can cache the updated version.
 
-1. Open the published site in Chrome on the phone.
-2. Tap the three-dot menu.
-3. Choose **Add to Home screen** or **Install app**.
-4. Confirm.
+## Notes and reminders
 
-## Main files
+Quick notes use browser `localStorage`. They stay on the same phone/browser and domain, but they do **not** automatically sync to another phone or browser.
 
-- `index.html` — entire schedule app
-- `manifest.webmanifest` — installable app metadata
-- `service-worker.js` — offline caching
-- `.gitignore` — basic Git exclusions
+For anything that must follow Evelyn across devices, add it to Google Calendar from the note panel.
 
 ## Important
 
-This version uses the schedule provided in the source sheet. It does not yet account for school holidays, minimum days, rally schedules, testing schedules, or other special calendar exceptions.
+This version follows the provided weekday bell schedule. It does not yet account for school holidays, minimum days, rally schedules, testing schedules, or other special calendar exceptions.
