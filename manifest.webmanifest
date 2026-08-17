@@ -3,9 +3,9 @@
   "short_name": "Kastner",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f4f6f9",
+  "background_color": "#0c1119",
   "theme_color": "#111827",
-  "description": "Evelyn's Kastner schedule with dark mode, simplified 3-day preview, notes, reminders, and a dancing avocado mascot.",
+  "description": "Evelyn's Kastner schedule with dark mode, a full next-day preview, notes, reminders, and 500 dad jokes.",
   "icons": [
     {
       "src": "./kastner-k-192.png",

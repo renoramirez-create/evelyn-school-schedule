@@ -1520,7 +1520,6 @@
       background: transparent;
       padding: 0;
       cursor: pointer;
-      animation: avocadoBob 2.4s ease-in-out infinite, avocadoSwing 1.35s ease-in-out infinite alternate;
     }
 
     .avocado-float img {
@@ -1555,16 +1554,6 @@
 
     .avocado-float.hide {
       display: none;
-    }
-
-    @keyframes avocadoBob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-7px); }
-    }
-
-    @keyframes avocadoSwing {
-      0% { rotate: -4deg; }
-      100% { rotate: 4deg; }
     }
 
     @media (max-width: 560px) {
@@ -1604,37 +1593,333 @@
     }
 
     .avocado-float {
-      animation:
-        avocadoBounce 1.55s ease-in-out infinite,
-        avocadoTilt .75s ease-in-out infinite alternate;
-      transform-origin: 50% 85%;
+    }
+
+
+    /* =====================================================
+       V4.4: FULL NEXT DAY + DAD JOKES + STATIC AVOCADO
+       ===================================================== */
+
+    .dashboard-controls {
+      display: block !important;
+      width: 100%;
+    }
+
+    .preview-launch-button {
+      width: 100% !important;
+      max-width: none !important;
+      min-height: 50px;
+      border: 0 !important;
+      background: linear-gradient(90deg, #ff5f9f 0%, #4bd37b 50%, #ff5f9f 100%) !important;
+      color: #ffffff !important;
+      box-shadow: 0 10px 26px rgba(255,95,159,.16), 0 8px 22px rgba(75,211,123,.13) !important;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+
+    body.preview-mode .dashboard-controls {
+      display: none !important;
+    }
+
+    .preview-three-days {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .preview-full-day {
+      grid-column: 1 / -1;
+      border-color: rgba(108, 218, 145, .30);
+      box-shadow: 0 14px 36px rgba(55,132,81,.12);
+    }
+
+    .preview-full-day .preview-day-head-simple {
+      background: linear-gradient(100deg, rgba(85,211,126,.28), rgba(255,112,164,.24));
+    }
+
+    .preview-tomorrow-badge,
+    .preview-simple-badge {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 7px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .09em;
+    }
+
+    .preview-tomorrow-badge {
+      background: #39c66d;
+      color: #08170e;
+    }
+
+    .preview-simple-badge {
+      background: rgba(255,104,156,.18);
+      color: #f3b0c8;
+      border: 1px solid rgba(255,104,156,.22);
+    }
+
+    .preview-break .preview-period-simple {
+      background: #d59a28;
+    }
+
+    .preview-lunch .preview-period-simple {
+      background: #42a861;
+    }
+
+    .preview-intervention .preview-period-simple {
+      background: #3f7acb;
+    }
+
+    .avocado-float {
+      animation: none !important;
+      rotate: 0deg !important;
+      transform: none !important;
     }
 
     .avocado-float::after {
-      content: "tap me 😊";
-      position: absolute;
-      left: 58px;
-      bottom: 8px;
-      white-space: nowrap;
-      padding: 5px 8px;
+      display: none !important;
+      content: none !important;
+    }
+
+    .floating-action-group {
+      position: fixed;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 42;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .floating-action-group .floating-note-button {
+      position: static !important;
+      right: auto !important;
+      bottom: auto !important;
+    }
+
+    .floating-jokes-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 50px;
+      padding: 0 16px;
+      border: 0;
       border-radius: 999px;
-      background: rgba(255,255,255,.94);
-      color: #172033;
+      background: #e52938;
+      color: #fff;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(229,41,56,.28);
+    }
+
+    .floating-jokes-button span:first-child {
+      font-size: 18px;
+    }
+
+    .jokes-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(7,10,16,.66);
+      backdrop-filter: blur(8px);
+    }
+
+    .jokes-overlay.show {
+      display: flex;
+    }
+
+    .jokes-sheet {
+      width: min(100%, 650px);
+      max-height: min(88vh, 820px);
+      overflow-y: auto;
+      padding: 10px 18px 22px;
+      border: 1px solid #303a49;
+      border-radius: 28px 28px 20px 20px;
+      background: #141b25;
+      color: #f4f7fb;
+      box-shadow: 0 28px 80px rgba(0,0,0,.42);
+      animation: sheetUp .25s ease;
+    }
+
+    .jokes-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .jokes-kicker {
+      color: #ff7f8c;
       font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .1em;
+    }
+
+    .jokes-header h2 {
+      margin: 3px 0 0;
+      color: #fff;
+      font-size: 23px;
+      letter-spacing: -.5px;
+    }
+
+    .random-joke-card {
+      padding: 20px;
+      border: 1px solid rgba(255,94,109,.28);
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(229,41,56,.17), rgba(255,255,255,.035));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .random-joke-label {
+      margin-bottom: 8px;
+      color: #ff8792;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .1em;
+    }
+
+    .random-joke-text {
+      color: #fff;
+      font-size: 20px;
       font-weight: 800;
-      box-shadow: 0 6px 16px rgba(0,0,0,.16);
-      pointer-events: none;
+      line-height: 1.42;
+      letter-spacing: -.2px;
     }
 
-    @keyframes avocadoBounce {
-      0%,100% { transform: translateY(0) scale(1); }
-      45% { transform: translateY(-10px) scale(1.03); }
-      65% { transform: translateY(-4px) scale(.99); }
+    .joke-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 11px;
     }
 
-    @keyframes avocadoTilt {
-      0% { rotate: -5deg; }
-      100% { rotate: 5deg; }
+    .joke-actions button {
+      min-height: 44px;
+      border-radius: 14px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .another-joke-button {
+      border: 0;
+      background: #e52938;
+      color: #fff;
+    }
+
+    .all-jokes-button {
+      border: 1px solid #3b4656;
+      background: #1d2633;
+      color: #dfe6ef;
+    }
+
+    .all-jokes-wrap {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .all-jokes-wrap.show {
+      display: block;
+    }
+
+    .all-jokes-title {
+      margin: 0 2px 8px;
+      color: #aeb8c8;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .all-jokes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .dad-joke-list-item {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 9px;
+      align-items: start;
+      padding: 10px 11px;
+      border: 1px solid #2b3543;
+      border-radius: 13px;
+      background: #19212c;
+    }
+
+    .dad-joke-list-item > span {
+      display: grid;
+      place-items: center;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: #30202a;
+      color: #ff8d98;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .dad-joke-list-item p {
+      margin: 2px 0 0;
+      color: #e9eef5;
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 720px) {
+      .preview-three-days {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-full-day {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .floating-action-group {
+        right: 10px;
+        bottom: max(12px, env(safe-area-inset-bottom));
+        gap: 6px;
+      }
+
+      .floating-jokes-button,
+      .floating-action-group .floating-note-button {
+        min-height: 46px;
+        padding-left: 13px;
+        padding-right: 13px;
+        font-size: 12px;
+      }
+
+      .jokes-overlay {
+        padding: 0;
+      }
+
+      .jokes-sheet {
+        width: 100%;
+        max-height: 92vh;
+        border-radius: 28px 28px 0 0;
+        padding-bottom: max(22px, env(safe-area-inset-bottom));
+      }
+
+      .joke-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .random-joke-text {
+        font-size: 18px;
+      }
     }
 
 </style>
@@ -1756,6 +2041,7 @@
 
 </div>
 
+<script src="./dad-jokes.js"></script>
 <script>
 const TIME_ZONE = "America/Los_Angeles";
 const NOTES_STORAGE_KEY = "evelyn-kastner-notes-v1";
@@ -1871,7 +2157,7 @@ function renderPreviewThreeDays(dates) {
 
   if (!container) return;
 
-  container.innerHTML = dates.map(date => {
+  container.innerHTML = dates.map((date, index) => {
     const weekday = weekdayNameForDate(date);
     const dayInfo = getScheduleForDay(weekday);
 
@@ -1881,12 +2167,9 @@ function renderPreviewThreeDays(dates) {
       day: "numeric"
     }).format(date);
 
-    // Preview is intentionally simplified:
-    // only class periods + T-Bird intervention, no breaks/lunch,
-    // no teachers, rooms, countdowns, or other extra information.
-    const previewItems = dayInfo.schedule.filter(item =>
-      item.type === "class" || item.type === "intervention"
-    );
+    const previewItems = index === 0
+      ? dayInfo.schedule
+      : dayInfo.schedule.filter(item => item.type === "class" || item.type === "intervention");
 
     const rows = previewItems.map(item => {
       const info = getItemInfo(item);
@@ -1913,10 +2196,13 @@ function renderPreviewThreeDays(dates) {
         `;
       }
 
+      const supportIcon = item.type === "lunch" ? "🍴" : item.type === "break" ? "☕" : "★";
+      const supportName = item.type === "intervention" ? "T-Bird Intervention" : item.name;
+
       return `
-        <div class="preview-row-simple preview-support-simple">
-          <div class="preview-period-simple" aria-label="T-Bird">★</div>
-          <div class="preview-class-simple">T-Bird</div>
+        <div class="preview-row-simple preview-support-simple preview-${item.type}">
+          <div class="preview-period-simple" aria-label="${supportName}">${supportIcon}</div>
+          <div class="preview-class-simple">${supportName}</div>
           <div class="preview-time-simple">
             ${formatTime(item.start)}<br>${formatTime(item.end)}
           </div>
@@ -1924,9 +2210,14 @@ function renderPreviewThreeDays(dates) {
       `;
     }).join("");
 
+    const topLabel = index === 0
+      ? `<span class="preview-tomorrow-badge">FULL NEXT SCHOOL DAY</span>`
+      : `<span class="preview-simple-badge">QUICK LOOK</span>`;
+
     return `
-      <article class="preview-day-card-simple">
+      <article class="preview-day-card-simple ${index === 0 ? "preview-full-day" : "preview-quick-day"}">
         <div class="preview-day-head-simple">
+          <div>${topLabel}</div>
           <span class="preview-day-name-simple">${weekday}</span>
           <span class="preview-date-simple">${shortDate} • ${dayInfo.name}</span>
         </div>
@@ -2409,6 +2700,67 @@ function closeAvocado() {
   if (mascot) mascot.classList.add("hide");
 }
 
+
+let lastDadJokeIndex = -1;
+let allDadJokesVisible = false;
+
+function openDadJokes() {
+  document.getElementById("jokesOverlay").classList.add("show");
+  showRandomDadJoke();
+}
+
+function closeDadJokes() {
+  document.getElementById("jokesOverlay").classList.remove("show");
+}
+
+function closeDadJokesFromOverlay(event) {
+  if (event.target.id === "jokesOverlay") closeDadJokes();
+}
+
+function showRandomDadJoke() {
+  if (!Array.isArray(window.DAD_JOKES) || !window.DAD_JOKES.length) {
+    document.getElementById("randomDadJoke").textContent = "Dad joke supply temporarily out for milk.";
+    return;
+  }
+
+  let index = Math.floor(Math.random() * window.DAD_JOKES.length);
+  if (window.DAD_JOKES.length > 1) {
+    while (index === lastDadJokeIndex) {
+      index = Math.floor(Math.random() * window.DAD_JOKES.length);
+    }
+  }
+
+  lastDadJokeIndex = index;
+  document.getElementById("randomDadJoke").textContent = window.DAD_JOKES[index];
+}
+
+function toggleAllDadJokes() {
+  allDadJokesVisible = !allDadJokesVisible;
+
+  const wrap = document.getElementById("allJokesWrap");
+  const button = document.getElementById("allJokesButton");
+
+  wrap.classList.toggle("show", allDadJokesVisible);
+  button.textContent = allDadJokesVisible ? "Hide All 500" : "View All 500";
+
+  if (allDadJokesVisible && !document.getElementById("allJokesList").children.length) {
+    renderAllDadJokes();
+  }
+}
+
+function renderAllDadJokes() {
+  const list = document.getElementById("allJokesList");
+
+  if (!Array.isArray(window.DAD_JOKES)) return;
+
+  list.innerHTML = window.DAD_JOKES.map((joke, index) => `
+    <div class="dad-joke-list-item">
+      <span>${index + 1}</span>
+      <p>${escapeHtml(joke)}</p>
+    </div>
+  `).join("");
+}
+
 /* =========================================================
    SAVED NOTES + GOOGLE CALENDAR
    ========================================================= */
@@ -2638,7 +2990,10 @@ function openSavedNoteInGoogleCalendar(id) {
 }
 
 document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeNotes();
+  if (event.key === "Escape") {
+    closeNotes();
+    closeDadJokes();
+  }
 });
 
 applyStoredTheme();
@@ -2654,10 +3009,17 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 
-<button class="floating-note-button" type="button" onclick="openNotes()" aria-label="Open saved notes">
-  <span>📝</span>
-  <span>Note</span>
-</button>
+<div class="floating-action-group">
+  <button class="floating-jokes-button" type="button" onclick="openDadJokes()" aria-label="Open dad jokes">
+    <span>😂</span>
+    <span>Dad Jokes</span>
+  </button>
+
+  <button class="floating-note-button" type="button" onclick="openNotes()" aria-label="Open saved notes">
+    <span>📝</span>
+    <span>Note</span>
+  </button>
+</div>
 
 <div class="notes-overlay" id="notesOverlay" onclick="closeNotesFromOverlay(event)">
   <section class="notes-sheet" role="dialog" aria-modal="true" aria-labelledby="notesTitle">
@@ -2713,6 +3075,36 @@ if ("serviceWorker" in navigator) {
   </section>
 </div>
 
+
+
+<div class="jokes-overlay" id="jokesOverlay" onclick="closeDadJokesFromOverlay(event)">
+  <section class="jokes-sheet" role="dialog" aria-modal="true" aria-labelledby="jokesTitle">
+    <div class="sheet-handle"></div>
+
+    <div class="jokes-header">
+      <div>
+        <div class="jokes-kicker">DAD MODE ACTIVATED</div>
+        <h2 id="jokesTitle">500 Dad Jokes</h2>
+      </div>
+      <button class="sheet-close" type="button" onclick="closeDadJokes()" aria-label="Close dad jokes">×</button>
+    </div>
+
+    <div class="random-joke-card">
+      <div class="random-joke-label">RANDOM DAD JOKE</div>
+      <div class="random-joke-text" id="randomDadJoke">Loading maximum dad energy...</div>
+    </div>
+
+    <div class="joke-actions">
+      <button class="another-joke-button" type="button" onclick="showRandomDadJoke()">😂 Another Joke</button>
+      <button class="all-jokes-button" id="allJokesButton" type="button" onclick="toggleAllDadJokes()">View All 500</button>
+    </div>
+
+    <div class="all-jokes-wrap" id="allJokesWrap">
+      <div class="all-jokes-title">The Full 500</div>
+      <div class="all-jokes-list" id="allJokesList"></div>
+    </div>
+  </section>
+</div>
 
 <button class="avocado-float" id="avocadoFloat" type="button" onclick="closeAvocado()" aria-label="Close avocado friend">
   <span class="avocado-smile">😊</span>
