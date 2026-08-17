@@ -4,8 +4,8 @@
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0c1119",
-  "theme_color": "#111827",
-  "description": "Evelyn's Kastner schedule with dark mode, a full next-day preview, notes, reminders, and 500 dad jokes.",
+  "theme_color": "#0c1119",
+  "description": "Evelyn's Kastner schedule with a full next-school-day preview, quick two-day lookahead, saved notes, calendar reminders, and school-safe jokes.",
   "icons": [
     {
       "src": "./kastner-k-192.png",

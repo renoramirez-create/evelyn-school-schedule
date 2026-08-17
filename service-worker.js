@@ -1,4 +1,5 @@
-const CACHE_NAME = "kastner-schedule-v4-4";
+const CACHE_NAME = "kastner-schedule-v4-5";
+
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,8 +7,7 @@ const ASSETS = [
   "./kastner-k.png",
   "./kastner-k-192.png",
   "./kastner-k-512.png",
-  "./dancing-avocado.png",
-  "./dad-jokes.js"
+  "./school-jokes.js"
 ];
 
 self.addEventListener("install", event => {
@@ -20,7 +20,11 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
     )
   );
   self.clients.claim();
@@ -35,7 +39,10 @@ self.addEventListener("fetch", event => {
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
           return response;
         })
-        .catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
+        .catch(() =>
+          caches.match(event.request)
+            .then(cached => cached || caches.match("./index.html"))
+        )
     );
     return;
   }

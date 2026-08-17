@@ -1472,17 +1472,7 @@
         padding-right: 11px;
       }
     }
-
-  
-    /* =====================================================
-       V4.2: DARK DEFAULT + AVOCADO + CLEAN PREVIEW
-       ===================================================== */
-
-    .dashboard-controls {
-      grid-template-columns: 1fr;
-    }
-
-    .theme-toggle-button {
+.theme-toggle-button {
       display: none !important;
     }
 
@@ -1509,63 +1499,14 @@
       padding-top: calc(max(18px, env(safe-area-inset-top)) + 40px);
     }
 
-    .avocado-float {
-      position: fixed;
-      left: max(14px, env(safe-area-inset-left));
-      bottom: max(18px, env(safe-area-inset-bottom));
-      z-index: 70;
-      width: 86px;
-      height: 86px;
-      border: 0;
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
-    }
 
-    .avocado-float img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 14px 24px rgba(0,0,0,.28));
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    .avocado-smile {
-      position: absolute;
-      top: -6px;
-      right: -4px;
-      display: grid;
-      place-items: center;
-      min-width: 28px;
-      height: 28px;
-      padding: 0 7px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.95);
-      color: #172033;
-      font-size: 15px;
-      box-shadow: 0 10px 18px rgba(0,0,0,.18);
-    }
-
-    .dark-mode .avocado-smile {
-      background: rgba(255,255,255,.96);
-      color: #172033;
-    }
-
-    .avocado-float.hide {
-      display: none;
-    }
+    
 
     @media (max-width: 560px) {
       .dashboard-controls {
         display: block;
       }
-
-      .avocado-float {
-        width: 74px;
-        height: 74px;
-      }
-    }
+}
 
   
     /* V4.3 locked UI refinements */
@@ -1592,112 +1533,373 @@
       box-shadow: 0 10px 24px rgba(30,144,255,.24) !important;
     }
 
-    .avocado-float {
-    }
+
+    
 
 
     /* =====================================================
-       V4.4: FULL NEXT DAY + DAD JOKES + STATIC AVOCADO
+       V4.5 UI REFINEMENTS
        ===================================================== */
 
-    .dashboard-controls {
-      display: block !important;
-      width: 100%;
-    }
-
     .preview-launch-button {
-      width: 100% !important;
-      max-width: none !important;
-      min-height: 50px;
+      width: 100%;
+      min-height: 52px;
       border: 0 !important;
-      background: linear-gradient(90deg, #ff5f9f 0%, #4bd37b 50%, #ff5f9f 100%) !important;
-      color: #ffffff !important;
-      box-shadow: 0 10px 26px rgba(255,95,159,.16), 0 8px 22px rgba(75,211,123,.13) !important;
-      font-size: 14px;
-      letter-spacing: .01em;
+      background:
+        linear-gradient(
+          90deg,
+          #ff6fa5 0%,
+          #ff91b9 22%,
+          #70e39b 50%,
+          #ff91b9 78%,
+          #ff6fa5 100%
+        ) !important;
+      color: #151a23 !important;
+      font-weight: 900 !important;
+      box-shadow: 0 10px 26px rgba(255,111,165,.18) !important;
     }
 
-    body.preview-mode .dashboard-controls {
-      display: none !important;
+    .preview-first-shell {
+      margin-bottom: 18px;
     }
 
-    .preview-three-days {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .preview-first-date {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 2px 10px;
     }
 
-    .preview-full-day {
-      grid-column: 1 / -1;
-      border-color: rgba(108, 218, 145, .30);
-      box-shadow: 0 14px 36px rgba(55,132,81,.12);
+    .preview-first-date strong {
+      display: block;
+      font-size: 19px;
+      letter-spacing: -.3px;
     }
 
-    .preview-full-day .preview-day-head-simple {
-      background: linear-gradient(100deg, rgba(85,211,126,.28), rgba(255,112,164,.24));
+    .preview-first-date span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
     }
 
-    .preview-tomorrow-badge,
-    .preview-simple-badge {
-      display: inline-flex;
-      width: fit-content;
-      margin-bottom: 7px;
-      padding: 4px 7px;
+    .preview-full-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 21px;
+      border-radius: 26px;
+      color: #fff;
+      box-shadow: 0 14px 34px rgba(0,0,0,.18);
+    }
+
+    .preview-full-hero::after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      right: -70px;
+      top: -90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.10);
+    }
+
+    .preview-full-eyebrow {
+      position: relative;
+      z-index: 1;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      color: rgba(255,255,255,.78);
+    }
+
+    .preview-full-class {
+      position: relative;
+      z-index: 1;
+      margin-top: 7px;
+      font-size: 28px;
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -.8px;
+    }
+
+    .preview-full-time {
+      position: relative;
+      z-index: 1;
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .preview-full-chips {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .preview-full-chip {
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.16);
       border-radius: 999px;
-      font-size: 9px;
+      background: rgba(255,255,255,.10);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .preview-full-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .preview-full-info {
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card);
+    }
+
+    .preview-full-info-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 10px;
       font-weight: 900;
       letter-spacing: .09em;
+      text-transform: uppercase;
     }
 
-    .preview-tomorrow-badge {
-      background: #39c66d;
-      color: #08170e;
+    .preview-full-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
-    .preview-simple-badge {
-      background: rgba(255,104,156,.18);
-      color: #f3b0c8;
-      border: 1px solid rgba(255,104,156,.22);
+    .preview-full-info-title {
+      margin-top: 7px;
+      font-size: 17px;
+      font-weight: 900;
     }
 
-    .preview-break .preview-period-simple {
-      background: #d59a28;
+    .preview-full-info-time {
+      margin-top: 3px;
+      font-size: 13px;
+      font-weight: 750;
     }
 
-    .preview-lunch .preview-period-simple {
-      background: #42a861;
+    .preview-full-info-detail {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
     }
 
-    .preview-intervention .preview-period-simple {
-      background: #3f7acb;
+    .preview-full-list-title {
+      margin: 17px 2px 8px;
+      font-size: 15px;
+      font-weight: 900;
     }
 
-    .avocado-float {
-      animation: none !important;
-      rotate: 0deg !important;
-      transform: none !important;
+    .preview-full-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
 
-    .avocado-float::after {
-      display: none !important;
-      content: none !important;
+    .preview-full-row {
+      display: grid;
+      grid-template-columns: 6px minmax(0,1fr) auto;
+      align-items: center;
+      gap: 11px;
+      min-height: 61px;
+      padding: 9px 12px 9px 9px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
     }
 
-    .floating-action-group {
+    .preview-full-bar {
+      width: 6px;
+      height: 38px;
+      border-radius: 999px;
+    }
+
+    .preview-full-row-title {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .preview-full-row-meta {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .preview-full-row-time {
+      text-align: right;
+      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .preview-after-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 3px 2px 9px;
+    }
+
+    .preview-after-heading span {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .preview-after-heading small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .preview-following-days {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+    }
+
+    .main-saved-notes {
+      margin-top: 24px;
+      padding: 16px;
+      border: 1px solid rgba(255,78,78,.28);
+      border-radius: 21px;
+      background:
+        linear-gradient(145deg, rgba(105,19,28,.72), rgba(56,16,22,.88));
+      box-shadow: 0 10px 28px rgba(80,12,19,.16);
+    }
+
+    .main-saved-notes-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 11px;
+    }
+
+    .main-notes-kicker {
+      color: #ff9da5;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .1em;
+    }
+
+    .main-saved-notes h2 {
+      margin: 2px 0 0;
+      color: #fff;
+      font-size: 19px;
+    }
+
+    .main-notes-count {
+      display: grid;
+      place-items: center;
+      min-width: 30px;
+      height: 30px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #ff3d4d;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .main-saved-notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .main-note-card {
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 15px;
+      background: rgba(12,14,18,.38);
+    }
+
+    .main-note-text {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .main-note-reminder {
+      margin-top: 4px;
+      color: #ffb5bc;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .main-note-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 9px;
+    }
+
+    .main-note-actions button {
+      min-height: 30px;
+      padding: 0 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font: inherit;
+      font-size: 10px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .main-note-actions .calendar-main-note {
+      background: #1769e0;
+      border-color: #1769e0;
+    }
+
+    .main-note-actions .delete-main-note {
+      background: #d9303e;
+      border-color: #d9303e;
+    }
+
+    .main-notes-empty {
+      padding: 13px 10px;
+      text-align: center;
+      color: #ffc0c5;
+      font-size: 11px;
+    }
+
+    .bottom-actions {
       position: fixed;
       right: max(16px, env(safe-area-inset-right));
       bottom: max(18px, env(safe-area-inset-bottom));
-      z-index: 42;
+      z-index: 40;
       display: flex;
-      align-items: center;
       gap: 9px;
+      align-items: center;
     }
 
-    .floating-action-group .floating-note-button {
+    .bottom-actions .floating-note-button {
       position: static !important;
       right: auto !important;
       bottom: auto !important;
     }
 
-    .floating-jokes-button {
+    .floating-joke-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1706,219 +1908,156 @@
       padding: 0 16px;
       border: 0;
       border-radius: 999px;
-      background: #e52938;
+      background: #e32636;
       color: #fff;
       font: inherit;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 12px 30px rgba(229,41,56,.28);
+      box-shadow: 0 12px 28px rgba(227,38,54,.28);
     }
 
-    .floating-jokes-button span:first-child {
-      font-size: 18px;
-    }
-
-    .jokes-overlay {
+    .joke-overlay {
       position: fixed;
       inset: 0;
-      z-index: 90;
+      z-index: 60;
       display: none;
       align-items: flex-end;
       justify-content: center;
       padding: 16px;
-      background: rgba(7,10,16,.66);
+      background: rgba(5,8,12,.58);
       backdrop-filter: blur(8px);
     }
 
-    .jokes-overlay.show {
+    .joke-overlay.show {
       display: flex;
     }
 
-    .jokes-sheet {
-      width: min(100%, 650px);
-      max-height: min(88vh, 820px);
-      overflow-y: auto;
-      padding: 10px 18px 22px;
-      border: 1px solid #303a49;
-      border-radius: 28px 28px 20px 20px;
+    .joke-sheet {
+      width: min(100%, 560px);
+      padding: 19px;
+      border: 1px solid #343d49;
+      border-radius: 26px;
       background: #141b25;
-      color: #f4f7fb;
-      box-shadow: 0 28px 80px rgba(0,0,0,.42);
-      animation: sheetUp .25s ease;
+      box-shadow: 0 24px 70px rgba(0,0,0,.34);
     }
 
-    .jokes-header {
+    .joke-topline {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 14px;
+      align-items: flex-start;
     }
 
-    .jokes-kicker {
-      color: #ff7f8c;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .1em;
-    }
-
-    .jokes-header h2 {
-      margin: 3px 0 0;
-      color: #fff;
-      font-size: 23px;
-      letter-spacing: -.5px;
-    }
-
-    .random-joke-card {
-      padding: 20px;
-      border: 1px solid rgba(255,94,109,.28);
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(229,41,56,.17), rgba(255,255,255,.035));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
-
-    .random-joke-label {
-      margin-bottom: 8px;
-      color: #ff8792;
+    .joke-kicker {
+      color: #ff7e89;
       font-size: 9px;
       font-weight: 900;
-      letter-spacing: .1em;
+      letter-spacing: .08em;
     }
 
-    .random-joke-text {
-      color: #fff;
-      font-size: 20px;
-      font-weight: 800;
-      line-height: 1.42;
-      letter-spacing: -.2px;
+    .joke-topline h2 {
+      margin: 3px 0 0;
+      font-size: 22px;
     }
 
-    .joke-actions {
+    .joke-card {
+      min-height: 148px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-top: 11px;
+      place-items: center;
+      margin-top: 15px;
+      padding: 20px;
+      border: 1px solid #323d4c;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top right, rgba(227,38,54,.14), transparent 35%),
+        #1a222e;
     }
 
-    .joke-actions button {
-      min-height: 44px;
-      border-radius: 14px;
+    .joke-text {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 850;
+      line-height: 1.45;
+    }
+
+    .another-joke-button {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 15px;
+      background: #e32636;
+      color: #fff;
       font: inherit;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 900;
       cursor: pointer;
     }
 
-    .another-joke-button {
-      border: 0;
-      background: #e52938;
-      color: #fff;
-    }
-
-    .all-jokes-button {
-      border: 1px solid #3b4656;
-      background: #1d2633;
-      color: #dfe6ef;
-    }
-
-    .all-jokes-wrap {
-      display: none;
-      margin-top: 16px;
-    }
-
-    .all-jokes-wrap.show {
-      display: block;
-    }
-
-    .all-jokes-title {
-      margin: 0 2px 8px;
-      color: #aeb8c8;
-      font-size: 11px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    .all-jokes-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .dad-joke-list-item {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 9px;
-      align-items: start;
-      padding: 10px 11px;
-      border: 1px solid #2b3543;
-      border-radius: 13px;
-      background: #19212c;
-    }
-
-    .dad-joke-list-item > span {
-      display: grid;
-      place-items: center;
-      min-width: 30px;
-      height: 30px;
-      border-radius: 10px;
-      background: #30202a;
-      color: #ff8d98;
+    .joke-note {
+      margin-top: 9px;
+      text-align: center;
+      color: #8f9aaa;
       font-size: 10px;
-      font-weight: 900;
     }
 
-    .dad-joke-list-item p {
-      margin: 2px 0 0;
-      color: #e9eef5;
-      font-size: 12px;
-      font-weight: 650;
-      line-height: 1.4;
+    .app-toast {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: 92px;
+      transform: translate(-50%, 14px);
+      opacity: 0;
+      pointer-events: none;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.94);
+      color: #172033;
+      font-size: 11px;
+      font-weight: 850;
+      box-shadow: 0 10px 26px rgba(0,0,0,.20);
+      transition: .2s ease;
     }
 
-    @media (max-width: 720px) {
-      .preview-three-days {
+    .app-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 620px) {
+      .preview-full-grid,
+      .preview-following-days {
         grid-template-columns: 1fr;
       }
 
-      .preview-full-day {
-        grid-column: auto;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .floating-action-group {
-        right: 10px;
-        bottom: max(12px, env(safe-area-inset-bottom));
-        gap: 6px;
+      .preview-full-class {
+        font-size: 24px;
       }
 
-      .floating-jokes-button,
-      .floating-action-group .floating-note-button {
-        min-height: 46px;
-        padding-left: 13px;
-        padding-right: 13px;
-        font-size: 12px;
+      .preview-full-row {
+        grid-template-columns: 6px minmax(0,1fr) auto;
       }
 
-      .jokes-overlay {
+      .bottom-actions {
+        gap: 7px;
+      }
+
+      .floating-joke-button,
+      .bottom-actions .floating-note-button {
+        min-height: 47px;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .joke-overlay {
         padding: 0;
       }
 
-      .jokes-sheet {
+      .joke-sheet {
         width: 100%;
-        max-height: 92vh;
-        border-radius: 28px 28px 0 0;
+        border-radius: 26px 26px 0 0;
         padding-bottom: max(22px, env(safe-area-inset-bottom));
-      }
-
-      .joke-actions {
-        grid-template-columns: 1fr;
-      }
-
-      .random-joke-text {
-        font-size: 18px;
       }
     }
 
@@ -1969,14 +2108,20 @@
   <section class="preview-overview" id="previewOverview" aria-label="Next three school days">
     <div class="preview-simple-heading">
       <span class="preview-simple-label">PREVIEW ONLY</span>
-      <strong>Next 3 School Days</strong>
-      <span>Just the classes and times.</span>
+      <strong>What Comes Next</strong>
+      <span>Tomorrow looks like a real school-day dashboard. The next two stay simple.</span>
     </div>
 
-    <div class="preview-three-days" id="previewThreeDays"></div>
-  </section>
+    <div id="previewFirstDayDashboard"></div>
 
-  <div id="affirmationPopup" class="affirmation-popup">
+    <div class="preview-after-heading">
+      <span>After that</span>
+      <small>Quick look</small>
+    </div>
+
+    <div class="preview-following-days" id="previewFollowingDays"></div>
+  </section>
+<div id="affirmationPopup" class="affirmation-popup">
     <div class="affirmation-emoji" id="affirmationEmoji">✨</div>
 
     <div class="affirmation-content">
@@ -2032,6 +2177,18 @@
   <div class="section-title" id="sectionTitle">Today</div>
   <div id="scheduleList" class="schedule-list"></div>
 
+  <section class="main-saved-notes" id="mainSavedNotesSection">
+    <div class="main-saved-notes-head">
+      <div>
+        <span class="main-notes-kicker">SAVED NOTES</span>
+        <h2>Don't Forget</h2>
+      </div>
+      <span class="main-notes-count" id="mainSavedNoteCount">0</span>
+    </div>
+
+    <div class="main-saved-notes-list" id="mainSavedNotesList"></div>
+  </section>
+
   </div><!-- /todayDashboard -->
 
   <div class="footer">
@@ -2041,7 +2198,7 @@
 
 </div>
 
-<script src="./dad-jokes.js"></script>
+<script src="./school-jokes.js"></script>
 <script>
 const TIME_ZONE = "America/Los_Angeles";
 const NOTES_STORAGE_KEY = "evelyn-kastner-notes-v1";
@@ -2153,11 +2310,120 @@ function applyStoredTheme() {
 function updateThemeButton() {}
 
 function renderPreviewThreeDays(dates) {
-  const container = document.getElementById("previewThreeDays");
+  const fullContainer = document.getElementById("previewFirstDayDashboard");
+  const simpleContainer = document.getElementById("previewFollowingDays");
 
-  if (!container) return;
+  if (!fullContainer || !simpleContainer || !dates.length) return;
 
-  container.innerHTML = dates.map((date, index) => {
+  const firstDate = dates[0];
+  const firstDay = weekdayNameForDate(firstDate);
+  const firstInfo = getScheduleForDay(firstDay);
+  const firstSchedule = firstInfo.schedule;
+
+  const firstClass = firstSchedule.find(item => item.type === "class") || firstSchedule[0] || null;
+  const firstClassIndex = firstClass ? firstSchedule.indexOf(firstClass) : -1;
+  const nextClass = firstClassIndex >= 0
+    ? firstSchedule.slice(firstClassIndex + 1).find(item => item.type === "class") || null
+    : null;
+
+  if (!firstClass) {
+    fullContainer.innerHTML = `
+      <div class="empty">No regular classes on ${prettyDateForDate(firstDate)}.</div>
+    `;
+  } else {
+    const firstClassInfo = getItemInfo(firstClass);
+    const nextClassInfo = nextClass ? getItemInfo(nextClass) : null;
+    const heroDark = shadeHexColor(firstClassInfo.color, -28);
+
+    const fullRows = firstSchedule.map(item => {
+      const info = getItemInfo(item);
+      const meta = item.type === "class"
+        ? `${info.period} • Room ${info.room} • ${info.teacher}`
+        : info.subtitle;
+
+      return `
+        <div class="preview-full-row">
+          <div class="preview-full-bar" style="background:${info.color}"></div>
+
+          <div>
+            <div class="preview-full-row-title">${info.name}</div>
+            <div class="preview-full-row-meta">${meta}</div>
+          </div>
+
+          <div class="preview-full-row-time">
+            ${formatTime(item.start)}<br>${formatTime(item.end)}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    fullContainer.innerHTML = `
+      <section class="preview-first-shell">
+        <div class="preview-first-date">
+          <div>
+            <strong>${firstDay}</strong>
+            <span>${prettyDateForDate(firstDate)}</span>
+          </div>
+          <span>${firstInfo.name}</span>
+        </div>
+
+        <div
+          class="preview-full-hero"
+          style="background:linear-gradient(135deg, ${firstClassInfo.color}, ${heroDark});"
+        >
+          <div class="preview-full-eyebrow">FIRST UP</div>
+          <div class="preview-full-class">${firstClassInfo.name}</div>
+          <div class="preview-full-time">
+            ${formatTime(firstClass.start)} – ${formatTime(firstClass.end)}
+          </div>
+
+          <div class="preview-full-chips">
+            <span class="preview-full-chip">${firstClassInfo.period}</span>
+            <span class="preview-full-chip">Room ${firstClassInfo.room}</span>
+            <span class="preview-full-chip">${firstClassInfo.teacher}</span>
+          </div>
+        </div>
+
+        <div class="preview-full-grid">
+          <div
+            class="preview-full-info"
+            style="border-left:5px solid ${nextClassInfo ? nextClassInfo.color : "#667085"}"
+          >
+            <div class="preview-full-info-label">
+              <span
+                class="preview-full-dot"
+                style="background:${nextClassInfo ? nextClassInfo.color : "#667085"}"
+              ></span>
+              NEXT PERIOD
+            </div>
+
+            <div class="preview-full-info-title">
+              ${nextClassInfo ? nextClassInfo.name : "No next class"}
+            </div>
+
+            <div class="preview-full-info-time">
+              ${nextClass ? `${formatTime(nextClass.start)} – ${formatTime(nextClass.end)}` : ""}
+            </div>
+
+            <div class="preview-full-info-detail">
+              ${nextClassInfo ? `${nextClassInfo.period} • Room ${nextClassInfo.room}` : "End of classes"}
+            </div>
+          </div>
+
+          <div class="preview-full-info">
+            <div class="preview-full-info-label">DAY TYPE</div>
+            <div class="preview-full-info-title">${firstInfo.name}</div>
+            <div class="preview-full-info-detail">${firstInfo.description}</div>
+          </div>
+        </div>
+
+        <div class="preview-full-list-title">Full Day</div>
+        <div class="preview-full-list">${fullRows}</div>
+      </section>
+    `;
+  }
+
+  simpleContainer.innerHTML = dates.slice(1, 3).map(date => {
     const weekday = weekdayNameForDate(date);
     const dayInfo = getScheduleForDay(weekday);
 
@@ -2167,9 +2433,9 @@ function renderPreviewThreeDays(dates) {
       day: "numeric"
     }).format(date);
 
-    const previewItems = index === 0
-      ? dayInfo.schedule
-      : dayInfo.schedule.filter(item => item.type === "class" || item.type === "intervention");
+    const previewItems = dayInfo.schedule.filter(item =>
+      item.type === "class" || item.type === "intervention"
+    );
 
     const rows = previewItems.map(item => {
       const info = getItemInfo(item);
@@ -2196,13 +2462,10 @@ function renderPreviewThreeDays(dates) {
         `;
       }
 
-      const supportIcon = item.type === "lunch" ? "🍴" : item.type === "break" ? "☕" : "★";
-      const supportName = item.type === "intervention" ? "T-Bird Intervention" : item.name;
-
       return `
-        <div class="preview-row-simple preview-support-simple preview-${item.type}">
-          <div class="preview-period-simple" aria-label="${supportName}">${supportIcon}</div>
-          <div class="preview-class-simple">${supportName}</div>
+        <div class="preview-row-simple preview-support-simple">
+          <div class="preview-period-simple" aria-label="T-Bird">★</div>
+          <div class="preview-class-simple">T-Bird</div>
           <div class="preview-time-simple">
             ${formatTime(item.start)}<br>${formatTime(item.end)}
           </div>
@@ -2210,21 +2473,14 @@ function renderPreviewThreeDays(dates) {
       `;
     }).join("");
 
-    const topLabel = index === 0
-      ? `<span class="preview-tomorrow-badge">FULL NEXT SCHOOL DAY</span>`
-      : `<span class="preview-simple-badge">QUICK LOOK</span>`;
-
     return `
-      <article class="preview-day-card-simple ${index === 0 ? "preview-full-day" : "preview-quick-day"}">
+      <article class="preview-day-card-simple">
         <div class="preview-day-head-simple">
-          <div>${topLabel}</div>
           <span class="preview-day-name-simple">${weekday}</span>
           <span class="preview-date-simple">${shortDate} • ${dayInfo.name}</span>
         </div>
 
-        <div class="preview-list-simple">
-          ${rows}
-        </div>
+        <div class="preview-list-simple">${rows}</div>
       </article>
     `;
   }).join("");
@@ -2695,70 +2951,66 @@ function setNoSchool() {
 
 
 
-function closeAvocado() {
-  const mascot = document.getElementById("avocadoFloat");
-  if (mascot) mascot.classList.add("hide");
+
+
+let lastJokeIndex = -1;
+
+function openJokes() {
+  document.getElementById("jokeOverlay").classList.add("show");
+  showRandomJoke();
 }
 
-
-let lastDadJokeIndex = -1;
-let allDadJokesVisible = false;
-
-function openDadJokes() {
-  document.getElementById("jokesOverlay").classList.add("show");
-  showRandomDadJoke();
+function closeJokes() {
+  document.getElementById("jokeOverlay").classList.remove("show");
 }
 
-function closeDadJokes() {
-  document.getElementById("jokesOverlay").classList.remove("show");
+function closeJokesFromOverlay(event) {
+  if (event.target.id === "jokeOverlay") closeJokes();
 }
 
-function closeDadJokesFromOverlay(event) {
-  if (event.target.id === "jokesOverlay") closeDadJokes();
-}
+function showRandomJoke() {
+  const pool = Array.isArray(window.SCHOOL_SAFE_JOKES)
+    ? window.SCHOOL_SAFE_JOKES
+    : [];
 
-function showRandomDadJoke() {
-  if (!Array.isArray(window.DAD_JOKES) || !window.DAD_JOKES.length) {
-    document.getElementById("randomDadJoke").textContent = "Dad joke supply temporarily out for milk.";
+  const target = document.getElementById("jokeText");
+
+  if (!pool.length) {
+    target.textContent = "No jokes loaded yet.";
     return;
   }
 
-  let index = Math.floor(Math.random() * window.DAD_JOKES.length);
-  if (window.DAD_JOKES.length > 1) {
-    while (index === lastDadJokeIndex) {
-      index = Math.floor(Math.random() * window.DAD_JOKES.length);
+  let index = Math.floor(Math.random() * pool.length);
+
+  if (pool.length > 1) {
+    while (index === lastJokeIndex) {
+      index = Math.floor(Math.random() * pool.length);
     }
   }
 
-  lastDadJokeIndex = index;
-  document.getElementById("randomDadJoke").textContent = window.DAD_JOKES[index];
+  lastJokeIndex = index;
+  target.textContent = pool[index];
 }
 
-function toggleAllDadJokes() {
-  allDadJokesVisible = !allDadJokesVisible;
+let toastTimer = null;
 
-  const wrap = document.getElementById("allJokesWrap");
-  const button = document.getElementById("allJokesButton");
+function showToast(message) {
+  let toast = document.getElementById("appToast");
 
-  wrap.classList.toggle("show", allDadJokesVisible);
-  button.textContent = allDadJokesVisible ? "Hide All 500" : "View All 500";
-
-  if (allDadJokesVisible && !document.getElementById("allJokesList").children.length) {
-    renderAllDadJokes();
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "appToast";
+    toast.className = "app-toast";
+    document.body.appendChild(toast);
   }
-}
 
-function renderAllDadJokes() {
-  const list = document.getElementById("allJokesList");
+  toast.textContent = message;
+  toast.classList.add("show");
 
-  if (!Array.isArray(window.DAD_JOKES)) return;
-
-  list.innerHTML = window.DAD_JOKES.map((joke, index) => `
-    <div class="dad-joke-list-item">
-      <span>${index + 1}</span>
-      <p>${escapeHtml(joke)}</p>
-    </div>
-  `).join("");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1500);
 }
 
 /* =========================================================
@@ -2836,18 +3088,32 @@ function saveNote() {
 }
 
 function renderSavedNotes() {
-  const list = document.getElementById("savedNotesList");
-  const count = document.getElementById("savedNoteCount");
   const notes = loadNotes();
 
-  count.textContent = notes.length;
+  const modalList = document.getElementById("savedNotesList");
+  const modalCount = document.getElementById("savedNoteCount");
+  const mainList = document.getElementById("mainSavedNotesList");
+  const mainCount = document.getElementById("mainSavedNoteCount");
+
+  if (modalCount) modalCount.textContent = notes.length;
+  if (mainCount) mainCount.textContent = notes.length;
 
   if (!notes.length) {
-    list.innerHTML = `<div class="empty-notes">No saved notes yet.</div>`;
+    if (modalList) {
+      modalList.innerHTML = `<div class="empty-notes">No saved notes yet.</div>`;
+    }
+
+    if (mainList) {
+      mainList.innerHTML = `
+        <div class="main-notes-empty">
+          Nothing saved yet. Add a quick note when you need one.
+        </div>
+      `;
+    }
     return;
   }
 
-  list.innerHTML = notes.map(note => {
+  const modalMarkup = notes.map(note => {
     const reminderText =
       note.date && note.time
         ? `Reminder: ${formatSavedReminder(note.date, note.time)}`
@@ -2855,23 +3121,55 @@ function renderSavedNotes() {
         ? `Date: ${formatSavedDate(note.date)}`
         : "Quick note";
 
-    const calendarButton =
-      note.date && note.time
-        ? `<button type="button" onclick="openSavedNoteInGoogleCalendar('${note.id}')">Calendar</button>`
-        : "";
-
     return `
       <div class="saved-note">
         <div class="saved-note-text">${escapeHtml(note.text)}</div>
         <div class="saved-note-reminder">${reminderText}</div>
         <div class="saved-note-actions">
           <button type="button" onclick="copySavedNote('${note.id}')">Copy</button>
-          ${calendarButton}
+          <button type="button" onclick="calendarSavedNote('${note.id}')">Calendar</button>
           <button class="delete-note" type="button" onclick="deleteSavedNote('${note.id}')">Delete</button>
         </div>
       </div>
     `;
   }).join("");
+
+  const mainMarkup = notes.map(note => {
+    const reminderText =
+      note.date && note.time
+        ? `Reminder: ${formatSavedReminder(note.date, note.time)}`
+        : note.date
+        ? `Date: ${formatSavedDate(note.date)}`
+        : "Quick note";
+
+    return `
+      <div class="main-note-card">
+        <div class="main-note-text">${escapeHtml(note.text)}</div>
+        <div class="main-note-reminder">${reminderText}</div>
+
+        <div class="main-note-actions">
+          <button type="button" onclick="copySavedNote('${note.id}')">Copy</button>
+          <button
+            class="calendar-main-note"
+            type="button"
+            onclick="calendarSavedNote('${note.id}')"
+          >
+            Calendar
+          </button>
+          <button
+            class="delete-main-note"
+            type="button"
+            onclick="deleteSavedNote('${note.id}')"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  if (modalList) modalList.innerHTML = modalMarkup;
+  if (mainList) mainList.innerHTML = mainMarkup;
 }
 
 function escapeHtml(value) {
@@ -2911,7 +3209,10 @@ async function copySavedNote(id) {
 
   try {
     await navigator.clipboard.writeText(copyText);
-    document.getElementById("noteFeedback").textContent = "Copied ✓";
+
+    const feedback = document.getElementById("noteFeedback");
+    if (feedback) feedback.textContent = "Copied ✓";
+    showToast("Note copied ✓");
   } catch (error) {
     document.getElementById("noteFeedback").textContent = "Copy was blocked by the browser.";
   }
@@ -2922,6 +3223,32 @@ function deleteSavedNote(id) {
   storeNotes(notes);
   renderSavedNotes();
   document.getElementById("noteFeedback").textContent = "Note deleted.";
+}
+
+
+function calendarSavedNote(id) {
+  const note = loadNotes().find(item => item.id === id);
+  if (!note) return;
+
+  if (note.date && note.time) {
+    const url = googleCalendarUrl(note.text, note.date, note.time);
+    window.open(url, "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  openNotes();
+
+  document.getElementById("noteText").value = note.text;
+
+  if (note.date) {
+    document.getElementById("reminderDate").value = note.date;
+  } else {
+    document.getElementById("reminderDate").value = isoDateOnly(getFresnoCalendarDate());
+  }
+
+  document.getElementById("reminderTime").value = "";
+  document.getElementById("noteFeedback").textContent =
+    "Choose a time, then tap Add to Google Calendar.";
 }
 
 function googleCalendarUrl(text, date, time) {
@@ -2992,15 +3319,18 @@ function openSavedNoteInGoogleCalendar(id) {
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
     closeNotes();
-    closeDadJokes();
+    closeJokes();
   }
 });
 
-applyStoredTheme();
-showDailyAffirmation();
-renderSavedNotes();
-updateDashboard();
-setInterval(updateDashboard, 15000);
+document.addEventListener("DOMContentLoaded", () => {
+  applyStoredTheme();
+  showDailyAffirmation();
+  renderSavedNotes();
+  updateDashboard();
+
+  setInterval(updateDashboard, 15000);
+});
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -3009,16 +3339,40 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 
-<div class="floating-action-group">
-  <button class="floating-jokes-button" type="button" onclick="openDadJokes()" aria-label="Open dad jokes">
+<div class="bottom-actions">
+  <button class="floating-joke-button" type="button" onclick="openJokes()" aria-label="Open a school-safe joke">
     <span>😂</span>
-    <span>Dad Jokes</span>
+    <span>Joke</span>
   </button>
 
   <button class="floating-note-button" type="button" onclick="openNotes()" aria-label="Open saved notes">
     <span>📝</span>
     <span>Note</span>
   </button>
+</div>
+
+<div class="joke-overlay" id="jokeOverlay" onclick="closeJokesFromOverlay(event)">
+  <section class="joke-sheet" role="dialog" aria-modal="true" aria-labelledby="jokeTitle">
+    <div class="joke-topline">
+      <div>
+        <span class="joke-kicker">CROWD-FAVORITE STYLE • SCHOOL SAFE</span>
+        <h2 id="jokeTitle">😂 Joke Break</h2>
+      </div>
+      <button class="sheet-close" type="button" onclick="closeJokes()" aria-label="Close jokes">×</button>
+    </div>
+
+    <div class="joke-card">
+      <div class="joke-text" id="jokeText">Loading a good one...</div>
+    </div>
+
+    <button class="another-joke-button" type="button" onclick="showRandomJoke()">
+      Another Joke
+    </button>
+
+    <div class="joke-note">
+      Clean jokes only. One random joke at a time.
+    </div>
+  </section>
 </div>
 
 <div class="notes-overlay" id="notesOverlay" onclick="closeNotesFromOverlay(event)">
@@ -3074,42 +3428,5 @@ if ("serviceWorker" in navigator) {
     </div>
   </section>
 </div>
-
-
-
-<div class="jokes-overlay" id="jokesOverlay" onclick="closeDadJokesFromOverlay(event)">
-  <section class="jokes-sheet" role="dialog" aria-modal="true" aria-labelledby="jokesTitle">
-    <div class="sheet-handle"></div>
-
-    <div class="jokes-header">
-      <div>
-        <div class="jokes-kicker">DAD MODE ACTIVATED</div>
-        <h2 id="jokesTitle">500 Dad Jokes</h2>
-      </div>
-      <button class="sheet-close" type="button" onclick="closeDadJokes()" aria-label="Close dad jokes">×</button>
-    </div>
-
-    <div class="random-joke-card">
-      <div class="random-joke-label">RANDOM DAD JOKE</div>
-      <div class="random-joke-text" id="randomDadJoke">Loading maximum dad energy...</div>
-    </div>
-
-    <div class="joke-actions">
-      <button class="another-joke-button" type="button" onclick="showRandomDadJoke()">😂 Another Joke</button>
-      <button class="all-jokes-button" id="allJokesButton" type="button" onclick="toggleAllDadJokes()">View All 500</button>
-    </div>
-
-    <div class="all-jokes-wrap" id="allJokesWrap">
-      <div class="all-jokes-title">The Full 500</div>
-      <div class="all-jokes-list" id="allJokesList"></div>
-    </div>
-  </section>
-</div>
-
-<button class="avocado-float" id="avocadoFloat" type="button" onclick="closeAvocado()" aria-label="Close avocado friend">
-  <span class="avocado-smile">😊</span>
-  <img src="./dancing-avocado.png" alt="Cute dancing avocado" />
-</button>
-
 </body>
 </html>
