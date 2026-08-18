@@ -1,37 +1,46 @@
-# Evelyn's Kastner Schedule V4.6
+# Evelyn's Kastner Schedule V4.7
 
-## What changed
+## Lunch fix
 
-- Removed the avocado image and every related HTML, CSS, and JavaScript reference.
-- Fixed the initial schedule loading issue by initializing after the full DOM is ready.
-- Preview mode now gives the **next school day a full dashboard**, similar to Today:
-  - First Up
-  - Next Period
-  - day type
-  - teacher / room details
-  - complete bell schedule
-- The following two preview days remain simple class-and-time listings.
-- Preview button is full width with a pink → green → pink gradient.
-- Saved notes now also appear in a red section at the bottom of the main page.
-- Each saved note has Copy, Calendar, and Delete.
-- The red Joke button shows one random school-safe joke at a time.
-- There is no "view all jokes" screen.
-- Dark mode remains locked on.
-- Period 0 remains excluded.
+The previous version tried to read Nutrislice directly from the student's browser. That can fail when a remote server does not allow a cross-origin browser fetch.
 
-## Joke curation
+V4.7 now uses two paths:
 
-The local joke pool is school-safe and was curated around joke styles surfaced by public user-rated/user-voted clean-joke sources. The app does not claim that every locally worded joke has its own individual public rating.
+1. **GitHub Action sync**
+   - GitHub fetches Kastner's Nutrislice data server-side.
+   - It writes the results to `data/lunch-menu.json`.
+   - Evelyn's page reads that local same-origin JSON file.
+   - The workflow runs daily and can also be run manually from GitHub Actions.
 
-## GitHub update
+2. **Live Nutrislice fallback**
+   - If there is no synced menu for the selected date, the Lunch Menu button opens Kastner's official Nutrislice page for that exact date in a new tab.
+   - This means she is never stuck on a failed sync screen.
 
-Replace the files in your existing repository with the contents of this package, commit the change, and refresh the site once while online after GitHub Pages redeploys.
+## Taco button layout
 
+The taco button now sits on its own line below the Lunch row content instead of being squeezed beside the lunch end time.
 
-## Lunch Menu
+## One-time GitHub setup
 
-- Lunch rows now include a **🌮 Menu** button.
-- Today, the full next-day preview, and both quick preview days can open the lunch menu for the correct date.
-- The app tries Kastner's Nutrislice JSON menu feed and saves successful results in local browser storage.
-- It makes a best-effort attempt to cache the current month's menu. Starting on the 25th, it also tries to prepare the next month.
-- If automatic menu retrieval is blocked or temporarily unavailable, the lunch sheet has an **Open Official Nutrislice Menu** button for that exact date.
+After uploading V4.7:
+
+1. Open the repository on GitHub.
+2. Go to **Actions**.
+3. Open **Update Kastner Lunch Menu**.
+4. Choose **Run workflow** once.
+5. After it finishes, check that `data/lunch-menu.json` contains menu dates/items.
+6. GitHub Pages will redeploy after the committed JSON update.
+
+After that, the workflow runs automatically each morning.
+
+## Included files
+
+- `index.html`
+- `lunch-menu.js`
+- `school-jokes.js`
+- `data/lunch-menu.json`
+- `scripts/update-lunch.mjs`
+- `.github/workflows/update-lunch.yml`
+- PWA / icon files
+
+Period 0 remains excluded everywhere.

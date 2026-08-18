@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#0c1119",
   "theme_color": "#0c1119",
-  "description": "Evelyn's Kastner schedule with previews, saved notes, reminders, school-safe jokes, and a daily lunch menu.",
+  "description": "Evelyn's Kastner schedule with previews, notes, jokes, and a server-synced Kastner lunch menu with live Nutrislice fallback.",
   "icons": [
     {
       "src": "./kastner-k-192.png",

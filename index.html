@@ -2284,6 +2284,70 @@
       }
     }
 
+
+    /* =====================================================
+       V4.7 LUNCH LAYOUT + LIVE FALLBACK
+       ===================================================== */
+
+    .lunch-menu-mini {
+      display: none !important;
+    }
+
+    .schedule-item:has(.lunch-menu-row-button),
+    .preview-full-row:has(.lunch-menu-row-button) {
+      align-items: center;
+    }
+
+    .lunch-menu-row-button {
+      grid-column: 2 / 4;
+      justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 34px;
+      margin-top: 1px;
+      padding: 0 13px;
+      border: 1px solid rgba(255,176,0,.28);
+      border-radius: 999px;
+      background:
+        linear-gradient(135deg, #ffb31a, #ffc94e);
+      color: #1b1303;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 7px 16px rgba(255,176,0,.16);
+    }
+
+    .preview-full-row .lunch-menu-row-button {
+      grid-column: 2 / 4;
+      margin-top: 0;
+      margin-bottom: 2px;
+    }
+
+    .external-arrow {
+      font-size: 12px;
+      opacity: .72;
+    }
+
+    .lunch-sync-source {
+      margin-top: 7px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(69,130,255,.08);
+      color: #91b9ff;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 560px) {
+      .lunch-menu-row-button {
+        grid-column: 2 / 4;
+        min-height: 33px;
+      }
+    }
+
 </style>
 </head>
 
@@ -2576,17 +2640,21 @@ function renderPreviewThreeDays(dates) {
 
           <div class="preview-full-row-time">
             ${formatTime(item.start)}<br>${formatTime(item.end)}
-
-            ${
-              item.type === "lunch"
-                ? `<button
-                     class="lunch-menu-mini preview-lunch-mini"
-                     type="button"
-                     onclick="openLunchMenuForIso('${isoDateOnly(firstDate)}', event)"
-                   >🌮 Menu</button>`
-                : ""
-            }
           </div>
+
+          ${
+            item.type === "lunch"
+              ? `<button
+                   class="lunch-menu-row-button preview-lunch-row-button"
+                   type="button"
+                   onclick="openLunchMenuForIso('${isoDateOnly(firstDate)}', event)"
+                 >
+                   <span>🌮</span>
+                   <span>Lunch Menu</span>
+                   <span class="external-arrow">↗</span>
+                 </button>`
+              : ""
+          }
         </div>
       `;
     }).join("");
@@ -2981,18 +3049,22 @@ function renderSchedule(schedule, isPreview = false) {
       <div class="item-time">
         ${formatTime(item.start)}<br>${formatTime(item.end)}
         <div class="item-duration">${durationMinutes(item)} min</div>
-
-        ${
-          item.type === "lunch"
-            ? `<button
-                 class="lunch-menu-mini"
-                 type="button"
-                 onclick="openTodayLunchMenu(event)"
-                 aria-label="View today's lunch menu"
-               >🌮 Menu</button>`
-            : ""
-        }
       </div>
+
+      ${
+        item.type === "lunch"
+          ? `<button
+               class="lunch-menu-row-button"
+               type="button"
+               onclick="openTodayLunchMenu(event)"
+               aria-label="View today's lunch menu"
+             >
+               <span>🌮</span>
+               <span>Lunch Menu</span>
+               <span class="external-arrow">↗</span>
+             </button>`
+          : ""
+      }
     `;
     list.appendChild(element);
   });
@@ -3227,7 +3299,7 @@ function openLunchMenuForIso(isoDate, event) {
   }
 
   if (window.KastnerLunchMenu) {
-    window.KastnerLunchMenu.open(isoDate);
+    window.KastnerLunchMenu.openOrLive(isoDate);
   }
 }
 
@@ -3679,9 +3751,10 @@ if ("serviceWorker" in navigator) {
       type="button"
       onclick="openOfficialLunchMenu()"
     >
-      Open Official Nutrislice Menu
+      Open Live Nutrislice Menu ↗
     </button>
 
+    <div class="lunch-sync-source" id="lunchSyncSource"></div>
     <div class="lunch-cache-note" id="lunchCacheNote"></div>
   </section>
 </div>

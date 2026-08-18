@@ -1,4 +1,4 @@
-const CACHE_NAME = "kastner-schedule-v4-6";
+const CACHE_NAME = "kastner-schedule-v4-7";
 
 const ASSETS = [
   "./",
@@ -32,6 +32,22 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  const url = new URL(event.request.url);
+
+  // Lunch data changes frequently. Always try the network first.
+  if (url.pathname.endsWith("/data/lunch-menu.json")) {
+    event.respondWith(
+      fetch(event.request, { cache: "no-store" })
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   if (event.request.mode === "navigate") {
     event.respondWith(
       fetch(event.request)
