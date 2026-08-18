@@ -1,4 +1,4 @@
-const CACHE_NAME = "kastner-schedule-v4-5";
+const CACHE_NAME = "kastner-schedule-v4-6";
 
 const ASSETS = [
   "./",
@@ -7,7 +7,8 @@ const ASSETS = [
   "./kastner-k.png",
   "./kastner-k-192.png",
   "./kastner-k-512.png",
-  "./school-jokes.js"
+  "./school-jokes.js",
+  "./lunch-menu.js"
 ];
 
 self.addEventListener("install", event => {

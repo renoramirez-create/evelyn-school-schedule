@@ -2061,6 +2061,229 @@
       }
     }
 
+
+    /* =====================================================
+       V4.6 LUNCH MENU
+       ===================================================== */
+
+    .lunch-menu-mini {
+      min-height: 28px;
+      margin-top: 6px;
+      padding: 0 9px;
+      border: 1px solid rgba(255,176,0,.30);
+      border-radius: 999px;
+      background: #ffb000;
+      color: #1a1203;
+      font: inherit;
+      font-size: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 6px 14px rgba(255,176,0,.17);
+    }
+
+    .preview-full-row-time .lunch-menu-mini {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+    }
+
+    .preview-day-lunch-button {
+      width: calc(100% - 20px);
+      min-height: 40px;
+      margin: 5px 10px 11px;
+      border: 1px solid rgba(255,184,48,.24);
+      border-radius: 13px;
+      background:
+        linear-gradient(135deg, rgba(255,177,29,.18), rgba(255,116,154,.12));
+      color: var(--text);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .preview-day-lunch-button span:first-child {
+      margin-right: 5px;
+    }
+
+    .lunch-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 65;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(4,7,11,.62);
+      backdrop-filter: blur(8px);
+    }
+
+    .lunch-overlay.show {
+      display: flex;
+    }
+
+    .lunch-sheet {
+      width: min(100%, 590px);
+      max-height: min(86vh, 760px);
+      overflow-y: auto;
+      padding: 10px 18px 20px;
+      border: 1px solid #343d49;
+      border-radius: 28px 28px 20px 20px;
+      background:
+        radial-gradient(circle at top right, rgba(255,176,0,.10), transparent 30%),
+        #141b25;
+      color: var(--text);
+      box-shadow: 0 24px 70px rgba(0,0,0,.38);
+    }
+
+    .lunch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 3px;
+    }
+
+    .lunch-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .lunch-icon {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      border-radius: 17px;
+      background:
+        linear-gradient(145deg, rgba(255,176,0,.24), rgba(255,88,130,.12));
+      font-size: 29px;
+    }
+
+    .lunch-kicker {
+      color: #ffbd38;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .11em;
+    }
+
+    .lunch-header h2 {
+      margin: 2px 0 0;
+      font-size: 22px;
+      letter-spacing: -.4px;
+    }
+
+    .lunch-date {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .lunch-status {
+      margin: 16px 0 9px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      background: #1b2430;
+      color: #cbd3df;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .lunch-status.success {
+      background: rgba(44,177,91,.12);
+      color: #91e5ad;
+    }
+
+    .lunch-status.warning {
+      background: rgba(255,176,0,.10);
+      color: #ffd46d;
+    }
+
+    .lunch-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lunch-food {
+      display: grid;
+      grid-template-columns: 36px minmax(0,1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 51px;
+      padding: 9px 11px;
+      border: 1px solid #303a48;
+      border-radius: 15px;
+      background: #1a222e;
+    }
+
+    .lunch-food-icon {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: rgba(255,176,0,.11);
+      font-size: 17px;
+    }
+
+    .lunch-food-name {
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.3;
+    }
+
+    .lunch-empty {
+      padding: 20px 12px;
+      text-align: center;
+      border: 1px dashed #374250;
+      border-radius: 15px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .official-lunch-button {
+      width: 100%;
+      min-height: 44px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 14px;
+      background: #f3a000;
+      color: #171005;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .lunch-cache-note {
+      min-height: 17px;
+      margin-top: 8px;
+      text-align: center;
+      color: #7f8a9a;
+      font-size: 9px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 560px) {
+      .lunch-overlay {
+        padding: 0;
+      }
+
+      .lunch-sheet {
+        width: 100%;
+        max-height: 90vh;
+        border-radius: 28px 28px 0 0;
+        padding-bottom: max(22px, env(safe-area-inset-bottom));
+      }
+    }
+
 </style>
 </head>
 
@@ -2199,6 +2422,7 @@
 </div>
 
 <script src="./school-jokes.js"></script>
+<script src="./lunch-menu.js"></script>
 <script>
 const TIME_ZONE = "America/Los_Angeles";
 const NOTES_STORAGE_KEY = "evelyn-kastner-notes-v1";
@@ -2352,6 +2576,16 @@ function renderPreviewThreeDays(dates) {
 
           <div class="preview-full-row-time">
             ${formatTime(item.start)}<br>${formatTime(item.end)}
+
+            ${
+              item.type === "lunch"
+                ? `<button
+                     class="lunch-menu-mini preview-lunch-mini"
+                     type="button"
+                     onclick="openLunchMenuForIso('${isoDateOnly(firstDate)}', event)"
+                   >🌮 Menu</button>`
+                : ""
+            }
           </div>
         </div>
       `;
@@ -2481,6 +2715,15 @@ function renderPreviewThreeDays(dates) {
         </div>
 
         <div class="preview-list-simple">${rows}</div>
+
+        <button
+          class="preview-day-lunch-button"
+          type="button"
+          onclick="openLunchMenuForIso('${isoDateOnly(date)}', event)"
+        >
+          <span>🌮</span>
+          <span>Lunch Menu</span>
+        </button>
       </article>
     `;
   }).join("");
@@ -2738,6 +2981,17 @@ function renderSchedule(schedule, isPreview = false) {
       <div class="item-time">
         ${formatTime(item.start)}<br>${formatTime(item.end)}
         <div class="item-duration">${durationMinutes(item)} min</div>
+
+        ${
+          item.type === "lunch"
+            ? `<button
+                 class="lunch-menu-mini"
+                 type="button"
+                 onclick="openTodayLunchMenu(event)"
+                 aria-label="View today's lunch menu"
+               >🌮 Menu</button>`
+            : ""
+        }
       </div>
     `;
     list.appendChild(element);
@@ -2952,6 +3206,48 @@ function setNoSchool() {
 
 
 
+
+
+function openTodayLunchMenu(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  openLunchMenuForIso(
+    isoDateOnly(getFresnoCalendarDate()),
+    event
+  );
+}
+
+function openLunchMenuForIso(isoDate, event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  if (window.KastnerLunchMenu) {
+    window.KastnerLunchMenu.open(isoDate);
+  }
+}
+
+function closeLunchMenu() {
+  if (window.KastnerLunchMenu) {
+    window.KastnerLunchMenu.close();
+  }
+}
+
+function closeLunchFromOverlay(event) {
+  if (event.target.id === "lunchOverlay") {
+    closeLunchMenu();
+  }
+}
+
+function openOfficialLunchMenu() {
+  if (window.KastnerLunchMenu) {
+    window.KastnerLunchMenu.openOfficial();
+  }
+}
 
 let lastJokeIndex = -1;
 
@@ -3320,6 +3616,7 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
     closeNotes();
     closeJokes();
+    closeLunchMenu();
   }
 });
 
@@ -3328,6 +3625,10 @@ document.addEventListener("DOMContentLoaded", () => {
   showDailyAffirmation();
   renderSavedNotes();
   updateDashboard();
+
+  if (window.KastnerLunchMenu) {
+    window.KastnerLunchMenu.prefetchCurrentMenus();
+  }
 
   setInterval(updateDashboard, 15000);
 });
@@ -3349,6 +3650,40 @@ if ("serviceWorker" in navigator) {
     <span>📝</span>
     <span>Note</span>
   </button>
+</div>
+
+<div class="lunch-overlay" id="lunchOverlay" onclick="closeLunchFromOverlay(event)">
+  <section class="lunch-sheet" role="dialog" aria-modal="true" aria-labelledby="lunchTitle">
+    <div class="sheet-handle"></div>
+
+    <div class="lunch-header">
+      <div class="lunch-title-wrap">
+        <div class="lunch-icon">🌮</div>
+
+        <div>
+          <div class="lunch-kicker">KASTNER LUNCH</div>
+          <h2 id="lunchTitle">Lunch Menu</h2>
+          <div class="lunch-date" id="lunchDateLabel"></div>
+        </div>
+      </div>
+
+      <button class="sheet-close" type="button" onclick="closeLunchMenu()" aria-label="Close lunch menu">×</button>
+    </div>
+
+    <div class="lunch-status" id="lunchStatus">Loading lunch menu...</div>
+    <div class="lunch-items" id="lunchItems"></div>
+
+    <button
+      class="official-lunch-button"
+      id="officialLunchButton"
+      type="button"
+      onclick="openOfficialLunchMenu()"
+    >
+      Open Official Nutrislice Menu
+    </button>
+
+    <div class="lunch-cache-note" id="lunchCacheNote"></div>
+  </section>
 </div>
 
 <div class="joke-overlay" id="jokeOverlay" onclick="closeJokesFromOverlay(event)">

@@ -1,4 +1,4 @@
-# Evelyn's Kastner Schedule V4.5
+# Evelyn's Kastner Schedule V4.6
 
 ## What changed
 
@@ -26,3 +26,12 @@ The local joke pool is school-safe and was curated around joke styles surfaced b
 ## GitHub update
 
 Replace the files in your existing repository with the contents of this package, commit the change, and refresh the site once while online after GitHub Pages redeploys.
+
+
+## Lunch Menu
+
+- Lunch rows now include a **🌮 Menu** button.
+- Today, the full next-day preview, and both quick preview days can open the lunch menu for the correct date.
+- The app tries Kastner's Nutrislice JSON menu feed and saves successful results in local browser storage.
+- It makes a best-effort attempt to cache the current month's menu. Starting on the 25th, it also tries to prepare the next month.
+- If automatic menu retrieval is blocked or temporarily unavailable, the lunch sheet has an **Open Official Nutrislice Menu** button for that exact date.

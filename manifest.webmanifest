@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#0c1119",
   "theme_color": "#0c1119",
-  "description": "Evelyn's Kastner schedule with a full next-school-day preview, quick two-day lookahead, saved notes, calendar reminders, and school-safe jokes.",
+  "description": "Evelyn's Kastner schedule with previews, saved notes, reminders, school-safe jokes, and a daily lunch menu.",
   "icons": [
     {
       "src": "./kastner-k-192.png",
